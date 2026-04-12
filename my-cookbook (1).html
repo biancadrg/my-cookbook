@@ -1,0 +1,3084 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bianca's Cookbook</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2b3a8e;
+      --blue-light: #3a4db0;
+      --blue-bright: #4a5fd4;
+      --blue-pale: #e8ecf8;
+      --blue-wash: #f3f5fc;
+      --white: #ffffff;
+      --cream: #f8f7f4;
+      --off-white: #fefdfb;
+      --coral: #e85d4a;
+      --coral-light: #ff7b6a;
+      --green: #3a8e5c;
+      --green-light: #4db070;
+      --yellow: #f5c842;
+      --yellow-light: #fde68a;
+      --text: #1a1a2e;
+      --text-secondary: #5a5a7a;
+      --text-muted: #9a9ab0;
+      --border: #e0e0ec;
+      --border-light: #eeeeF4;
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-ui: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.625rem;
+      --text-3xl: 2.25rem;
+      --text-4xl: 3rem;
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 1px 3px rgb(43 58 142 / 0.06);
+      --shadow-md: 0 4px 16px rgb(43 58 142 / 0.08);
+      --shadow-lg: 0 8px 30px rgb(43 58 142 / 0.1);
+
+      --transition-fast: 150ms ease;
+      --transition-base: 250ms ease;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ═══════════ HEADER ═══════════ */
+    .header {
+      background: var(--blue);
+      color: var(--white);
+      padding: var(--space-12) var(--space-6) var(--space-10);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Playful doodle pattern */
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(circle at 15% 25%, rgba(255,255,255,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 85% 75%, rgba(255,255,255,0.04) 0%, transparent 50%);
+    }
+
+    /* Decorative doodles */
+    .header-doodles {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .doodle {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: 0.12;
+      filter: grayscale(1) brightness(10);
+    }
+    .doodle:nth-child(1) { top: 12%; left: 5%; transform: rotate(-15deg); }
+    .doodle:nth-child(2) { top: 20%; right: 8%; transform: rotate(10deg); }
+    .doodle:nth-child(3) { bottom: 15%; left: 12%; transform: rotate(5deg); }
+    .doodle:nth-child(4) { bottom: 20%; right: 15%; transform: rotate(-20deg); }
+    .doodle:nth-child(5) { top: 50%; left: 3%; transform: rotate(15deg); }
+    .doodle:nth-child(6) { top: 40%; right: 3%; transform: rotate(-8deg); }
+
+    .header-content { position: relative; z-index: 1; }
+
+    .header-top-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: var(--space-4);
+    }
+
+    .header h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--space-3);
+    }
+    .header h1 .amp {
+      font-style: italic;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+    .header-sub {
+      font-size: var(--text-lg);
+      opacity: 0.7;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-10);
+      margin-top: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      display: block;
+      font-family: var(--font-display);
+    }
+    .stat-label { font-size: var(--text-xs); opacity: 0.6; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* ═══════════ MAIN ═══════════ */
+    .main-container { max-width: 1100px; margin: 0 auto; padding: var(--space-6); }
+
+    /* Controls */
+    .controls {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+      box-shadow: var(--shadow-sm);
+      border: 1.5px solid var(--border-light);
+    }
+    .search-row {
+      display: flex;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: var(--space-3) var(--space-5);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: var(--text-base);
+      font-family: var(--font-ui);
+      background: var(--blue-wash);
+      color: var(--text);
+      transition: all var(--transition-base);
+    }
+    .search-input:focus { outline: none; border-color: var(--blue); background: var(--white); box-shadow: 0 0 0 3px var(--blue-pale); }
+    .search-input::placeholder { color: var(--text-muted); }
+
+    /* Buttons */
+    .btn {
+      padding: var(--space-3) var(--space-5);
+      border: none;
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      font-family: var(--font-ui);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary { background: var(--blue); color: var(--white); }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: var(--blue-wash); color: var(--blue); border: 1.5px solid var(--border); }
+    .btn-secondary:hover { background: var(--blue-pale); }
+    .btn-small { padding: var(--space-2) var(--space-4); font-size: var(--text-xs); }
+    .btn-danger { background: var(--coral); color: var(--white); }
+    .btn-danger:hover { background: var(--coral-light); }
+    .btn-cook { background: var(--green); color: var(--white); font-size: var(--text-sm); }
+    .btn-cook:hover { background: var(--green-light); }
+
+    /* Tabs */
+    .tab-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+    .tab {
+      padding: var(--space-2) var(--space-4);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-full);
+      background: transparent;
+      cursor: pointer;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      font-family: var(--font-ui);
+      color: var(--text-secondary);
+      transition: all var(--transition-base);
+    }
+    .tab:hover { border-color: var(--blue); color: var(--blue); }
+    .tab.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+    /* ═══════════ RECIPE GRID ═══════════ */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-6);
+    }
+    .recipe-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      border: 2px solid var(--border-light);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all var(--transition-base);
+      position: relative;
+    }
+    .recipe-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--blue);
+      transform: translateY(-4px);
+    }
+
+    .card-color-bar { height: 5px; width: 100%; }
+    .meal-breakfast .card-color-bar { background: var(--yellow); }
+    .meal-lunch .card-color-bar { background: var(--green); }
+    .meal-dinner .card-color-bar { background: var(--blue); }
+    .meal-snacks .card-color-bar { background: var(--coral); }
+    .meal-desserts .card-color-bar { background: var(--yellow); }
+
+    .card-body { padding: var(--space-5) var(--space-6); }
+    .card-meal-tag {
+      font-size: var(--text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-2);
+    }
+    .meal-breakfast .card-meal-tag { color: #b8860b; }
+    .meal-lunch .card-meal-tag { color: var(--green); }
+    .meal-dinner .card-meal-tag { color: var(--blue); }
+    .meal-snacks .card-meal-tag { color: var(--coral); }
+    .meal-desserts .card-meal-tag { color: #b8860b; }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl); font-weight: 700;
+      margin-bottom: var(--space-1); color: var(--text);
+      line-height: 1.3;
+    }
+    .card-cuisine { font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: var(--space-3); }
+    .card-meta {
+      display: flex; gap: var(--space-4); font-size: var(--text-sm);
+      color: var(--text-muted); margin-bottom: var(--space-3); flex-wrap: wrap;
+    }
+    .card-meta span { display: flex; align-items: center; gap: 4px; }
+    .card-tags { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+    .diet-tag {
+      font-size: var(--text-xs); padding: 3px 10px; border-radius: var(--radius-full);
+      background: var(--blue-wash); color: var(--blue); border: 1px solid var(--blue-pale);
+      font-weight: 500;
+    }
+    .card-rating {
+      position: absolute; top: 14px; right: 14px;
+      font-size: var(--text-sm); color: var(--yellow);
+      text-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+    }
+
+    /* Have to try badge */
+    .have-to-try-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 4px 12px; border-radius: var(--radius-full);
+      background: var(--coral); color: var(--white);
+      box-shadow: 0 2px 8px rgb(232 93 74 / 0.3);
+    }
+    .card-badges { position: absolute; top: 14px; left: 14px; display: flex; gap: var(--space-2); }
+
+    /* Favourite heart */
+    .favourite-heart {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 1.3rem; cursor: pointer;
+      transition: transform var(--transition-fast);
+      z-index: 2; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1));
+    }
+    .favourite-heart:hover { transform: scale(1.2); }
+    .favourite-heart.filled { color: #e85d4a; }
+    .favourite-heart.empty { color: var(--border); }
+
+    .card-rating-with-fav { position: absolute; top: 38px; right: 14px; font-size: var(--text-sm); color: var(--yellow); }
+
+    .modal-fav-btn {
+      background: none; border: 2px solid var(--border); border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-4); cursor: pointer;
+      font-size: var(--text-sm); font-weight: 600; font-family: var(--font-ui);
+      display: flex; align-items: center; gap: 6px;
+      transition: all var(--transition-fast); color: var(--text-secondary);
+    }
+    .modal-fav-btn:hover { border-color: #e85d4a; color: #e85d4a; }
+    .modal-fav-btn.is-fav { border-color: #e85d4a; color: #e85d4a; background: #fef2f0; }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: var(--space-16) var(--space-6); color: var(--text-muted); }
+    .empty-state-icon { font-size: 4rem; margin-bottom: var(--space-4); }
+    .empty-state h3 {
+      font-family: var(--font-display); font-size: var(--text-xl);
+      color: var(--text-secondary); margin-bottom: var(--space-2);
+    }
+
+    /* ═══════════ MODALS ═══════════ */
+    .modal-overlay {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgb(43 58 142 / 0.3); z-index: 100;
+      justify-content: center; align-items: flex-start;
+      padding: var(--space-8) var(--space-4);
+      overflow-y: auto; backdrop-filter: blur(6px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: var(--radius-xl);
+      max-width: 700px; width: 100%; box-shadow: var(--shadow-lg);
+      overflow: hidden; animation: slideUp 0.3s ease;
+      border: 2px solid var(--border-light);
+    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .modal-header {
+      padding: var(--space-6) var(--space-8);
+      border-bottom: 2px solid var(--border-light);
+      position: relative;
+      background: var(--blue-wash);
+    }
+    .modal-close {
+      position: absolute; top: var(--space-4); right: var(--space-5);
+      background: var(--white); border: 2px solid var(--border); width: 36px; height: 36px;
+      border-radius: 50%; cursor: pointer; font-size: var(--text-lg);
+      display: flex; align-items: center; justify-content: center; color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+    .modal-close:hover { background: var(--blue-pale); border-color: var(--blue); }
+    .modal-meal-tag {
+      font-size: var(--text-xs); font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--blue); margin-bottom: var(--space-2);
+    }
+    .modal-title {
+      font-family: var(--font-display); font-size: var(--text-2xl);
+      font-weight: 700; margin-bottom: var(--space-2); color: var(--text);
+    }
+    .modal-cuisine { font-size: var(--text-base); color: var(--text-secondary); font-style: italic; }
+
+    .modal-meta-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--space-1); padding: var(--space-4) var(--space-8);
+      background: var(--blue); color: var(--white);
+    }
+    .meta-item { text-align: center; padding: var(--space-3); }
+    .meta-label {
+      font-size: var(--text-xs); opacity: 0.6;
+      text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 2px;
+    }
+    .meta-value { font-size: var(--text-base); font-weight: 700; }
+
+    .modal-body { padding: var(--space-6) var(--space-8); }
+    .modal-section { margin-bottom: var(--space-8); }
+    .modal-section:last-child { margin-bottom: 0; }
+    .modal-section h3 {
+      font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700;
+      margin-bottom: var(--space-4); color: var(--blue);
+      display: flex; align-items: center; gap: var(--space-2);
+      padding-bottom: var(--space-2);
+      border-bottom: 2px solid var(--blue-pale);
+    }
+
+    .equipment-list { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+    .equipment-tag {
+      font-size: var(--text-sm); padding: 5px 14px; border-radius: var(--radius-full);
+      background: var(--yellow-light); color: var(--text); border: 1.5px solid var(--yellow);
+      font-weight: 500;
+    }
+
+    .ingredients-list {
+      list-style: none; display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-2);
+    }
+    .ingredients-list li {
+      padding: var(--space-3) var(--space-4); background: var(--blue-wash);
+      border-radius: var(--radius-md); font-size: var(--text-sm);
+      border-left: 4px solid var(--blue);
+    }
+
+    .steps-list { list-style: none; counter-reset: steps; }
+    .steps-list li {
+      counter-increment: steps;
+      padding: var(--space-4) var(--space-5) var(--space-4) var(--space-12);
+      position: relative; margin-bottom: var(--space-3);
+      background: var(--blue-wash); border-radius: var(--radius-lg);
+      font-size: var(--text-sm); line-height: 1.7;
+    }
+    .steps-list li::before {
+      content: counter(steps); position: absolute; left: var(--space-4); top: var(--space-4);
+      width: 28px; height: 28px; background: var(--blue); color: var(--white);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: var(--text-xs); font-weight: 700;
+    }
+
+    .modal-notes {
+      background: var(--yellow-light); padding: var(--space-5); border-radius: var(--radius-lg);
+      font-size: var(--text-sm); color: var(--text-secondary); font-style: italic;
+      border-left: 4px solid var(--yellow);
+    }
+    .modal-source a { color: var(--blue); text-decoration: none; font-size: var(--text-sm); font-weight: 500; }
+    .modal-source a:hover { text-decoration: underline; }
+    .modal-tags { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+    .modal-rating { color: var(--yellow); font-size: var(--text-lg); }
+
+    .modal-footer-actions {
+      display: flex; justify-content: space-between; padding: var(--space-4) var(--space-8) var(--space-6);
+      gap: var(--space-2); flex-wrap: wrap;
+    }
+    .modal-footer-left { display: flex; gap: var(--space-2); }
+    .modal-footer-right { display: flex; gap: var(--space-2); }
+
+    /* ═══════════ FORM ═══════════ */
+    .form-group { margin-bottom: var(--space-5); }
+    .form-group label {
+      display: block; font-size: var(--text-sm); font-weight: 600;
+      margin-bottom: var(--space-2); color: var(--blue);
+      letter-spacing: 0.01em;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: var(--space-3) var(--space-4);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md); font-size: var(--text-sm); font-family: var(--font-ui);
+      background: var(--blue-wash); color: var(--text); transition: all var(--transition-base);
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--blue); background: var(--white);
+      box-shadow: 0 0 0 3px var(--blue-pale);
+    }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); }
+    .form-hint { font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-1); }
+    .form-actions {
+      display: flex; gap: var(--space-3); justify-content: flex-end;
+      padding-top: var(--space-5); border-top: 2px solid var(--border-light); margin-top: var(--space-5);
+    }
+    .checkbox-group {
+      display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0;
+    }
+    .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--blue); cursor: pointer; }
+    .checkbox-group label { font-size: var(--text-sm); font-weight: 600; color: var(--text-secondary); cursor: pointer; margin-bottom: 0; }
+
+    /* ═══════════ COOKING MODE ═══════════ */
+    .cook-mode-overlay {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--cream); z-index: 200;
+      flex-direction: column; overflow: hidden;
+    }
+    .cook-mode-overlay.open { display: flex; }
+
+    .cook-mode-header {
+      background: var(--blue); color: var(--white);
+      padding: var(--space-4) var(--space-8);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .cook-mode-title { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; }
+    .cook-mode-progress { font-size: var(--text-sm); opacity: 0.7; }
+    .cook-mode-exit {
+      padding: var(--space-2) var(--space-5);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius-full); background: transparent;
+      font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+      font-family: var(--font-ui); color: var(--white);
+      transition: all var(--transition-fast);
+    }
+    .cook-mode-exit:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+    .cook-mode-equipment {
+      background: var(--yellow-light); padding: var(--space-3) var(--space-8);
+      border-bottom: 2px solid var(--yellow);
+      display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .cook-mode-equipment-label {
+      font-size: var(--text-xs); font-weight: 700; text-transform: uppercase;
+      color: #b8860b; letter-spacing: 0.08em;
+    }
+
+    .cook-mode-body {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: var(--space-8); text-align: center;
+      overflow-y: auto;
+    }
+    .cook-mode-step-number {
+      width: 70px; height: 70px; border-radius: 50%;
+      background: var(--blue); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--text-2xl); font-weight: 700;
+      font-family: var(--font-display);
+      margin-bottom: var(--space-8);
+      box-shadow: var(--shadow-md);
+    }
+    .cook-mode-step-text {
+      font-family: var(--font-display);
+      font-size: 1.8rem; line-height: 1.5;
+      max-width: 600px; color: var(--text);
+      margin-bottom: var(--space-8);
+    }
+
+    .cook-mode-timer { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); }
+    .timer-display {
+      font-size: 3.5rem; font-weight: 700; font-family: var(--font-display);
+      color: var(--blue); letter-spacing: 0.02em;
+      min-width: 200px; text-align: center;
+    }
+    .timer-display.done { color: var(--green); }
+    .timer-controls { display: flex; gap: var(--space-3); }
+    .timer-btn {
+      padding: var(--space-2) var(--space-6); border-radius: var(--radius-full);
+      border: 2px solid var(--border); background: var(--white);
+      font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+      font-family: var(--font-ui); transition: all var(--transition-fast);
+    }
+    .timer-btn:hover { background: var(--blue-wash); border-color: var(--blue); }
+    .timer-btn.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .timer-set {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); color: var(--text-secondary);
+    }
+    .timer-set input {
+      width: 60px; padding: var(--space-2); text-align: center;
+      border: 2px solid var(--border); border-radius: var(--radius-sm);
+      font-size: var(--text-sm); font-family: var(--font-ui);
+    }
+    .timer-set input:focus { outline: none; border-color: var(--blue); }
+
+    .cook-mode-nav {
+      display: flex; gap: var(--space-5); align-items: center;
+      padding: var(--space-5) var(--space-8);
+      background: var(--white); border-top: 2px solid var(--border);
+      justify-content: center; flex-shrink: 0;
+    }
+    .cook-nav-btn {
+      padding: var(--space-3) var(--space-10); border-radius: var(--radius-full);
+      border: none; font-size: var(--text-base); font-weight: 600;
+      cursor: pointer; font-family: var(--font-ui); transition: all var(--transition-fast);
+    }
+    .cook-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .cook-nav-btn.prev { background: var(--blue-wash); color: var(--blue); border: 2px solid var(--border); }
+    .cook-nav-btn.prev:hover:not(:disabled) { border-color: var(--blue); }
+    .cook-nav-btn.next { background: var(--blue); color: var(--white); }
+    .cook-nav-btn.next:hover:not(:disabled) { background: var(--blue-light); transform: translateY(-1px); }
+
+    .cook-mode-dots { display: flex; gap: 8px; align-items: center; }
+    .cook-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--border); transition: all var(--transition-fast);
+    }
+    .cook-dot.active { background: var(--blue); transform: scale(1.4); }
+    .cook-dot.completed { background: var(--green); }
+
+    /* ═══════════ RESPONSIVE ═══════════ */
+    @media (max-width: 600px) {
+      .recipe-grid { grid-template-columns: 1fr; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
+      .modal-meta-grid { grid-template-columns: repeat(2, 1fr); }
+      .header h1 { font-size: var(--text-2xl); }
+      .cook-mode-step-text { font-size: var(--text-xl); }
+      .timer-display { font-size: 2.5rem; }
+      .modal-header, .modal-body, .modal-footer-actions { padding-left: var(--space-5); padding-right: var(--space-5); }
+      .modal-meta-grid { padding-left: var(--space-5); padding-right: var(--space-5); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-doodles">
+      <span class="doodle">🍳</span>
+      <span class="doodle">🥦</span>
+      <span class="doodle">🍜</span>
+      <span class="doodle">🍦</span>
+      <span class="doodle">🥗</span>
+      <span class="doodle">🍲</span>
+    </div>
+    <div class="header-content">
+      <div class="header-top-label">recipe journal</div>
+      <h1>eat <span class="amp">&amp;</span><br>cook</h1>
+      <div class="header-sub">Bianca's cookbook</div>
+      <div class="stats-bar">
+        <div class="stat"><span class="stat-number" id="totalRecipes">26</span><span class="stat-label">Recipes</span></div>
+        <div class="stat"><span class="stat-number" id="totalCuisines">8</span><span class="stat-label">Cuisines</span></div>
+        <div class="stat"><span class="stat-number" id="avgRating">-</span><span class="stat-label">Avg Rating</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="controls">
+      <div class="search-row">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search recipes, ingredients, cuisines...">
+        <button class="btn btn-primary" onclick="openAddForm()">+ Add Recipe</button>
+      </div>
+      <div class="tab-bar" id="tabBar">
+        <button class="tab active" data-meal="all">All</button>
+        <button class="tab" data-meal="breakfast">Breakfast</button>
+        <button class="tab" data-meal="lunch">Lunch</button>
+        <button class="tab" data-meal="dinner">Dinner</button>
+        <button class="tab" data-meal="snacks">Snacks</button>
+        <button class="tab" data-meal="desserts">Desserts</button>
+        <button class="tab" data-meal="favourites" style="border-color:#e85d4a;color:#e85d4a;">♥ Favourites</button>
+        <button class="tab" data-meal="havetotry" style="border-color:var(--coral);color:var(--coral);">Have to try</button>
+      </div>
+    </div>
+    <div class="recipe-grid" id="recipeGrid">
+        <div class="recipe-card meal-snacks" onclick="openDetail('r1744451200001')">
+          <div class="card-color-bar"></div>
+          <div class="card-badges"><span class="have-to-try-badge">Have to try</span></div>
+          <div class="favourite-heart empty" onclick="event.stopPropagation();quickToggleFav('r1744451200001')">♡</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">snacks</div>
+            <div class="card-title">Date Paste Banana Bread</div>
+            
+            <div class="card-meta">
+              <span>⏱ 20 min</span>
+              <span>🔥 55-65 min</span>
+              <span>🍴 1 loaf</span>
+              <span>Medium</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200002')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart empty" onclick="event.stopPropagation();quickToggleFav('r1744451200002')">♡</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Tuna Poke Bowl for Two</div>
+            <div class="card-cuisine">Japanese</div>
+            <div class="card-meta">
+              <span>⏱ 25 min</span>
+              <span>🔥 15 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">high-protein</span><span class="diet-tag">dairy-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200003')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200003')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Pan-Fried Chicken Thighs with Oregano Fries, Tzatziki &amp; Green Salad</div>
+            <div class="card-cuisine">Greek</div>
+            <div class="card-meta">
+              <span>⏱ 15 min</span>
+              <span>🔥 35 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-lunch" onclick="openDetail('r1744451200004')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200004')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">lunch</div>
+            <div class="card-title">Chicken Caesar Salad</div>
+            
+            <div class="card-meta">
+              <span>⏱ 20 min</span>
+              <span>🔥 15 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">high-protein</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200005')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200005')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Gastritis-Friendly Buddha Bowl</div>
+            
+            <div class="card-meta">
+              <span>⏱ 15 min</span>
+              <span>🔥 20 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">gastritis-friendly</span><span class="diet-tag">dairy-free</span><span class="diet-tag">gluten-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-desserts" onclick="openDetail('r1744451200006')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200006')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">desserts</div>
+            <div class="card-title">Puff Pastry Apple Turnovers</div>
+            <div class="card-cuisine">British</div>
+            <div class="card-meta">
+              <span>⏱ 15 min</span>
+              <span>🔥 20 min</span>
+              <span>🍴 4 turnovers</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">vegetarian</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200007')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200007')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Sheet Pan Salmon with Asparagus &amp; Potatoes</div>
+            
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 30 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">high-protein</span><span class="diet-tag">gluten-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-lunch" onclick="openDetail('r1744451200008')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200008')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">lunch</div>
+            <div class="card-title">Seeded Goats' Cheese &amp; Sweet Potato Salad</div>
+            
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 25 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">vegetarian</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200009')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200009')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Honey Mustard Chicken Tray Bake</div>
+            <div class="card-cuisine">British</div>
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 55 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200010')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200010')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Lemon Garlic Chicken with Cucumber-Avocado Salad &amp; Green Goddess Sauce</div>
+            
+            <div class="card-meta">
+              <span>⏱ 25 min</span>
+              <span>🔥 15 min</span>
+              <span>🍴 2-4</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200011')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200011')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Crispy Prawn Tacos with Coriander Mayo</div>
+            <div class="card-cuisine">Mexican</div>
+            <div class="card-meta">
+              <span>⏱ 15 min</span>
+              <span>🔥 15 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200012')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200012')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Smoky Beef, Pineapple &amp; Red Onion Tacos</div>
+            <div class="card-cuisine">Mexican</div>
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 25 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">dairy-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200013')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200013')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Simply Perfect Beef Spag Bol</div>
+            <div class="card-cuisine">Italian</div>
+            <div class="card-meta">
+              <span>⏱ 5 min</span>
+              <span>🔥 25 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200014')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200014')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Chicken Ruby (Dishoom)</div>
+            <div class="card-cuisine">Indian</div>
+            <div class="card-meta">
+              <span>⏱ 30 min + overnight marinade</span>
+              <span>🔥 45 min</span>
+              <span>🍴 4</span>
+              <span>Medium</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200015')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200015')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Miso Salmon, Rice &amp; Cucumber Salad</div>
+            <div class="card-cuisine">Japanese</div>
+            <div class="card-meta">
+              <span>⏱ 20 min + 30 min marinating</span>
+              <span>🔥 20 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">high-protein</span><span class="diet-tag">dairy-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200016')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200016')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Gochujang Peanut Noodles</div>
+            <div class="card-cuisine">Korean</div>
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 10 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">vegan</span><span class="diet-tag">dairy-free</span><span class="diet-tag">gluten-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200017')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200017')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Saffron, Crab &amp; Clotted Cream Risotto</div>
+            <div class="card-cuisine">Italian</div>
+            <div class="card-meta">
+              <span>⏱ 5 min</span>
+              <span>🔥 40 min</span>
+              <span>🍴 2</span>
+              <span>Medium</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200018')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200018')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Honey &amp; Sriracha Hot Wings</div>
+            
+            <div class="card-meta">
+              <span>⏱ 10 min + 2hr chill</span>
+              <span>🔥 50 min</span>
+              <span>🍴 4</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">dairy-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-lunch" onclick="openDetail('r1744451200019')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200019')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">lunch</div>
+            <div class="card-title">Carrot Beetroot Couscous Salad</div>
+            <div class="card-cuisine">Middle Eastern</div>
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 20 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">vegetarian</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-lunch" onclick="openDetail('r1744451200020')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200020')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">lunch</div>
+            <div class="card-title">Kale Slaw</div>
+            
+            <div class="card-meta">
+              <span>⏱ 15 min + 20 min chill</span>
+              <span>🔥 0 min</span>
+              <span>🍴 4</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">vegetarian</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200021')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200021')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Crab Mac 'N' Cheese</div>
+            <div class="card-cuisine">British</div>
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 35 min</span>
+              <span>🍴 2</span>
+              <span>Medium</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200022')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200022')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Posh Fish Finger Sandwich with Chips &amp; Dill Mayo</div>
+            <div class="card-cuisine">British</div>
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 25 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200023')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200023')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Lamb &amp; Apricot Stew</div>
+            <div class="card-cuisine">Middle Eastern</div>
+            <div class="card-meta">
+              <span>⏱ 10 min</span>
+              <span>🔥 30 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">dairy-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200024')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200024')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Beef &amp; Vegetable Casserole</div>
+            <div class="card-cuisine">British</div>
+            <div class="card-meta">
+              <span>⏱ 20 min</span>
+              <span>🔥 3 hr 30 min</span>
+              <span>🍴 4</span>
+              <span>Easy</span>
+            </div>
+            <div class="card-tags"><span class="diet-tag">dairy-free</span></div>
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200025')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200025')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">One-Pot Black Pepper Chicken Dal with Naan</div>
+            <div class="card-cuisine">Indian</div>
+            <div class="card-meta">
+              <span>⏱ 5 min</span>
+              <span>🔥 30 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="recipe-card meal-dinner" onclick="openDetail('r1744451200026')">
+          <div class="card-color-bar"></div>
+          
+          <div class="favourite-heart filled" onclick="event.stopPropagation();quickToggleFav('r1744451200026')">♥</div>
+          
+          <div class="card-body">
+            <div class="card-meal-tag">dinner</div>
+            <div class="card-title">Chicken Tinga Tacos with Lime Mayo</div>
+            <div class="card-cuisine">Mexican</div>
+            <div class="card-meta">
+              <span>⏱ 5 min</span>
+              <span>🔥 20 min</span>
+              <span>🍴 2</span>
+              <span>Easy</span>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="empty-state-icon">🍳</div>
+      <h3>No recipes yet</h3>
+      <p>Click "+ Add Recipe" to start building your cookbook!</p>
+    </div>
+  </div>
+
+  <!-- Recipe detail modal -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeDetail()">×</button>
+        <div class="modal-meal-tag" id="detailMeal">snacks</div>
+        <div class="modal-title" id="detailTitle">Honey &amp; Sriracha Hot Wings</div>
+        <div class="modal-cuisine" id="detailCuisine"></div>
+      </div>
+      <div class="modal-meta-grid" id="detailMeta"><div class="meta-item"><span class="meta-label">Prep</span><span class="meta-value">10 min + 2hr chill</span></div><div class="meta-item"><span class="meta-label">Cook</span><span class="meta-value">50 min</span></div><div class="meta-item"><span class="meta-label">Servings</span><span class="meta-value">4</span></div><div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-value">Easy</span></div></div>
+      <div class="modal-body" id="detailBody"><div class="modal-section"><h3>🪛 Equipment</h3><div class="equipment-list"><span class="equipment-tag">Large shallow roasting tin</span><span class="equipment-tag">Baking parchment</span><span class="equipment-tag">Pastry brush</span><span class="equipment-tag">Large bowl</span><span class="equipment-tag">Small bowl</span></div></div><div class="modal-section"><h3>🍅 Ingredients</h3><ul class="ingredients-list"><li>--- Wings ---</li><li>16 chicken wings (~1.5kg)</li><li>1 tsp smoked paprika</li><li>1 tsp garlic granules</li><li>2 tbsp baking powder</li><li>1 tbsp cornflour</li><li>1 tsp sea salt flakes</li><li>Black pepper</li><li>2 tsp sesame seeds (optional)</li><li>--- Glaze ---</li><li>4 tbsp sriracha</li><li>3 tbsp honey</li><li>1 tbsp cider vinegar</li></ul></div><div class="modal-section"><h3>📝 Steps</h3><ol class="steps-list"><li>Mix the paprika, garlic granules, baking powder, cornflour, sea salt, and a good grinding of black pepper together. Tip the wings into a large bowl, scatter half the seasoning and toss. Add the rest and toss again until completely coated. Cover and chill for at least 2 hours, or up to 24 hours.</li><li>Heat oven to 230°C / 210°C fan / gas 8. Line a large shallow roasting tin with baking parchment.</li><li>Arrange wings in a single layer, fleshy-side down. Roast for 20 minutes, then flip and roast another 25-30 minutes until the skin is blistered and crisp.</li><li>Whisk the glaze ingredients together in a small bowl until smooth.</li><li>Remove wings from oven and brush liberally with the glaze. Scatter sesame seeds if using. Roast for another 8-10 minutes until the glaze is bubbling and starting to char.</li><li>Serve straight from the tin or pile onto a plate.</li></ol></div><div class="modal-section"><h3>🏷️ Dietary</h3><div class="modal-tags"><span class="diet-tag">dairy-free</span></div></div><div class="modal-section"><h3>💬 Notes</h3><div class="modal-notes">The baking powder is the secret to crispy skin without deep frying. Chill time makes a big difference so don't skip it.</div></div></div>
+      <div class="modal-footer-actions">
+        <div class="modal-footer-left">
+          <button class="btn btn-danger btn-small" onclick="deleteRecipe()">Delete</button>
+        </div>
+        <div class="modal-footer-right">
+          <button class="btn btn-secondary btn-small" id="triedBtn" onclick="markAsTried()" style="display: none;">Mark as tried</button>
+          <button class="modal-fav-btn is-fav" id="favBtn" onclick="toggleFavourite()"><span id="favIcon">♥</span> <span id="favLabel">Favourited</span></button>
+          <button class="btn btn-secondary btn-small" onclick="editRecipe()">Edit</button>
+          <button class="btn btn-cook btn-small" id="startCookBtn" onclick="startCookMode()">Start cooking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit recipe modal -->
+  <div class="modal-overlay" id="addModal">
+    <div class="modal" style="max-width:750px;">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeAddForm()">×</button>
+        <div class="modal-title" id="formTitle">Edit Recipe</div>
+      </div>
+      <div class="modal-body">
+        <form id="recipeForm" onsubmit="saveRecipe(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Recipe Name</label>
+              <input type="text" id="fName" required="" placeholder="e.g. Nonna's Pasta">
+            </div>
+            <div class="form-group">
+              <label>Meal Type</label>
+              <select id="fMeal" required="">
+                <option value="">Choose...</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snacks">Snacks</option>
+                <option value="desserts">Desserts</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Cuisine</label>
+              <input type="text" id="fCuisine" placeholder="e.g. Italian, Mexican">
+            </div>
+            <div class="form-group">
+              <label>Difficulty</label>
+              <select id="fDifficulty">
+                <option value="">Choose...</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label>Prep Time</label>
+              <input type="text" id="fPrep" placeholder="e.g. 15 min">
+            </div>
+            <div class="form-group">
+              <label>Cook Time</label>
+              <input type="text" id="fCook" placeholder="e.g. 30 min">
+            </div>
+            <div class="form-group">
+              <label>Servings</label>
+              <input type="text" id="fServings" placeholder="e.g. 4">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Equipment Needed</label>
+            <textarea id="fEquipment" placeholder="One item per line
+e.g.
+Large saucepan
+Baking tray
+Parchment paper
+Stand mixer"></textarea>
+            <div class="form-hint">Everything you'll need: pans, tools, appliances, paper, etc.</div>
+          </div>
+          <div class="form-group">
+            <label>Ingredients</label>
+            <textarea id="fIngredients" placeholder="One ingredient per line. Keep the original weight and add grams in brackets.
+e.g.
+2 cups flour (250g)
+1 tbsp butter (14g)
+3 eggs
+1/2 cup milk (120ml)"></textarea>
+            <div class="form-hint">Tip: write the original amount, then add grams in brackets like "2 cups flour (250g)"</div>
+          </div>
+          <div class="form-group">
+            <label>Steps</label>
+            <textarea id="fSteps" placeholder="One step per line
+e.g.
+Preheat oven to 180C
+Mix dry ingredients together
+Add wet ingredients and stir until smooth" style="min-height:120px;"></textarea>
+          </div>
+          <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;">
+            <div class="checkbox-group">
+              <input type="checkbox" id="fHaveToTry">
+              <label for="fHaveToTry">Have to try</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="fFavourite">
+              <label for="fFavourite">Favourite</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Dietary Tags</label>
+              <input type="text" id="fTags" placeholder="e.g. vegetarian, gluten-free">
+              <div class="form-hint">Separate with commas</div>
+            </div>
+            <div class="form-group">
+              <label>Rating (1-5)</label>
+              <select id="fRating">
+                <option value="">Not rated</option>
+                <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 star</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Source / Link</label>
+            <input type="text" id="fSource" placeholder="e.g. https://... or 'Grandma's recipe'">
+          </div>
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea id="fNotes" placeholder="Any personal notes, tips, or variations..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeAddForm()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Recipe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cooking mode overlay -->
+  <div class="cook-mode-overlay" id="cookMode">
+    <div class="cook-mode-header">
+      <div>
+        <div class="cook-mode-title" id="cookTitle"></div>
+        <div class="cook-mode-progress" id="cookProgress"></div>
+      </div>
+      <button class="cook-mode-exit" onclick="exitCookMode()">Exit cooking mode</button>
+    </div>
+    <div class="cook-mode-equipment" id="cookEquipment" style="display:none;"></div>
+    <div class="cook-mode-body" id="cookBody"></div>
+    <div class="cook-mode-nav">
+      <button class="cook-nav-btn prev" id="cookPrev" onclick="cookStep(-1)">Previous</button>
+      <div class="cook-mode-dots" id="cookDots"></div>
+      <button class="cook-nav-btn next" id="cookNext" onclick="cookStep(1)">Next</button>
+    </div>
+  </div>
+
+<script type="application/json" id="recipe-data">[
+  {
+    "id": "r1744451200001",
+    "name": "Date Paste Banana Bread",
+    "meal": "snacks",
+    "cuisine": "",
+    "difficulty": "Medium",
+    "prepTime": "20 min",
+    "cookTime": "55-65 min",
+    "servings": "1 loaf",
+    "equipment": [
+      "Food processor or blender",
+      "Large mixing bowl",
+      "Loaf pan",
+      "Parchment paper",
+      "Pastry brush",
+      "Saucepan (for boiling dates)",
+      "Toothpick (for testing)"
+    ],
+    "ingredients": [
+      "--- Date Paste ---",
+      "1/4 cup (60ml) boiling water from boiled dates",
+      "1 tbsp (7g) ground flaxseeds",
+      "10-15g pitted dates (depending on desired sweetness)",
+      "--- Wet Ingredients ---",
+      "Your date paste",
+      "2 eggs",
+      "5 tbsp (75g) buttermilk or Greek yogurt",
+      "1 tablespoon vanilla bean paste",
+      "4 very ripe bananas (~400-450g)",
+      "1/2 cup (120ml / 110g) olive oil",
+      "--- Dry Ingredients ---",
+      "1 cup (120g) oat flour",
+      "3/4 cup (95g) all-purpose flour",
+      "1 1/2 tsp baking soda",
+      "1/2 tsp baking powder",
+      "1 tsp fine salt",
+      "1 tsp cinnamon",
+      "--- Add-Ins ---",
+      "3/4 cup (90g) chopped walnuts (optional)",
+      "1/4 cup (30g) cacao nibs, roughly chopped (optional)",
+      "1/4 cup (25g) dark cocoa powder"
+    ],
+    "steps": [
+      "Boil dates in 2 cups water for 10-15 minutes. Blend with 1/4 cup boiling water and flax until smooth. Let sit 5 minutes.",
+      "Blend date paste with eggs, yogurt, vanilla, bananas, and olive oil until smooth.",
+      "Fold dry ingredients into wet until just combined.",
+      "Divide batter: add walnuts to one half, cacao/cocoa to the other. Chill 10 minutes in the fridge (DON'T SKIP).",
+      "Pour into a lined loaf pan, alternating batters. Smooth top and add banana slices if you like.",
+      "Bake at 350°F (175°C) for 55-65 minutes, until a toothpick comes out clean.",
+      "Brush the loaf with reserved date water for shine and extra sweetness."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": true,
+    "favourite": false,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200002",
+    "name": "Tuna Poke Bowl for Two",
+    "meal": "dinner",
+    "cuisine": "Japanese",
+    "difficulty": "Easy",
+    "prepTime": "25 min",
+    "cookTime": "15 min",
+    "servings": "2",
+    "equipment": [
+      "Rice cooker or saucepan with lid",
+      "2 mixing bowls (for marinades)",
+      "Sharp knife",
+      "Chopping board",
+      "Julienne peeler or grater (for carrots)",
+      "Small saucepan (for edamame)"
+    ],
+    "ingredients": [
+      "--- Rice ---",
+      "300g sushi rice",
+      "360ml water",
+      "2 tbsp rice vinegar",
+      "1 tsp sugar",
+      "Pinch of salt",
+      "--- Tuna ---",
+      "400g sushi-grade ahi tuna",
+      "--- Your marinade ---",
+      "25g soy sauce",
+      "8g sesame oil",
+      "5g rice vinegar",
+      "Sriracha to taste",
+      "--- His marinade (gastritis-friendly) ---",
+      "20g low-sodium soy sauce",
+      "5g sesame oil",
+      "--- Toppings ---",
+      "1 avocado (~150g), sliced",
+      "100g cucumber, sliced into half-moons",
+      "80g carrot, julienned or grated",
+      "100g edamame (shelled), blanched",
+      "A few sheets of nori, cut into strips",
+      "30g pickled pink ginger"
+    ],
+    "steps": [
+      "Rinse 300g sushi rice until the water runs clear. Cook with 360ml water. Once done, mix in 2 tbsp rice vinegar, 1 tsp sugar, and a pinch of salt while still hot. Set aside.",
+      "Cut 400g sushi-grade ahi tuna into roughly 1.5cm cubes.",
+      "Make the marinades. Your bowl: toss 200g tuna with 25g soy sauce, 8g sesame oil, 5g rice vinegar, and sriracha to taste. His bowl (gastritis-friendly): toss the other 200g tuna with 20g low-sodium soy sauce and 5g sesame oil only, no vinegar or sriracha. Let both marinate in the fridge for 15 minutes.",
+      "While the tuna marinates, prep all the toppings: slice the avocado, cut cucumber into half-moons, julienne or grate the carrot, blanch the edamame, and cut nori into strips.",
+      "Split the rice between two bowls (~150g cooked rice each). Top each with the matching tuna, then divide the veggies between both bowls. Add nori strips on top. Go easy on the pickled ginger for his bowl or skip it entirely since the vinegar can trigger gastritis."
+    ],
+    "tags": [
+      "high-protein",
+      "dairy-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": false,
+    "source": "",
+    "notes": "His bowl skips vinegar, sriracha, and pickled ginger to be gentle on gastritis. Avocado is great for him though since it's soothing and adds creaminess."
+  },
+  {
+    "id": "r1744451200003",
+    "name": "Pan-Fried Chicken Thighs with Oregano Fries, Tzatziki & Green Salad",
+    "meal": "dinner",
+    "cuisine": "Greek",
+    "difficulty": "Easy",
+    "prepTime": "15 min",
+    "cookTime": "35 min",
+    "servings": "2",
+    "equipment": [
+      "Baking tray",
+      "Parchment paper",
+      "Large frying pan",
+      "Spatula",
+      "Mixing bowl",
+      "Grater",
+      "Chopping board",
+      "Kitchen paper"
+    ],
+    "ingredients": [
+      "--- Chicken ---",
+      "4 bone-in chicken thighs (or 3 boneless)",
+      "2 tbsp olive oil (for chicken)",
+      "1 tsp smoked paprika",
+      "1 tsp garlic powder",
+      "1/2 tsp salt",
+      "1/2 tsp black pepper",
+      "--- Oregano Fries ---",
+      "3 medium potatoes, cut into wedges",
+      "2 tbsp olive oil (for fries)",
+      "1 1/2 tsp dried oregano",
+      "1/2 tsp sea salt",
+      "--- Tzatziki ---",
+      "200g Greek yoghurt",
+      "2 mini Persian cucumbers, grated and squeezed dry",
+      "1 garlic clove, finely grated",
+      "1 tbsp lemon juice",
+      "1 tbsp olive oil",
+      "1 tsp dried mint (or fresh)",
+      "--- Green Salad ---",
+      "2 large handfuls mixed salad leaves",
+      "2 mini Persian cucumbers, sliced",
+      "1 tbsp extra virgin olive oil",
+      "1 tsp red wine vinegar"
+    ],
+    "steps": [
+      "Make the tzatziki: mix 200g Greek yoghurt with the grated and squeezed cucumbers, grated garlic, lemon juice, olive oil, and dried mint. Season with a pinch of salt. Pop it in the fridge while you cook everything else.",
+      "Preheat oven to 220°C (425°F fan). Line a baking tray with parchment.",
+      "Toss potato wedges with 2 tbsp olive oil, oregano, and sea salt. Spread in a single layer on the tray, making sure they're not crowded. Bake until golden and crispy.",
+      "Pat chicken thighs dry with kitchen paper. Season both sides generously with smoked paprika, garlic powder, salt, and black pepper.",
+      "Heat 2 tbsp olive oil in a large pan over medium-high heat. Place thighs skin-side down and press flat with a spatula. Cook without moving until the underside is deep golden. Flip and finish cooking through.",
+      "Take the chicken out and let it rest on a board. This keeps it juicy.",
+      "Toss salad leaves and sliced cucumbers with extra virgin olive oil, red wine vinegar, and a small pinch of salt.",
+      "Plate up: serve the chicken alongside the oregano fries, a generous spoon of tzatziki, and the green salad."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "For your husband's stomach, swap the raw garlic in the tzatziki for a smaller amount or leave it out entirely. Fries also work well with sweet potatoes for a gentler option. Chicken thighs are more forgiving than breasts so less worry about overcooking. If bone-in, press down with a spatula for extra crispy skin."
+  },
+  {
+    "id": "r1744451200004",
+    "name": "Chicken Caesar Salad",
+    "meal": "lunch",
+    "cuisine": "",
+    "difficulty": "Easy",
+    "prepTime": "20 min",
+    "cookTime": "15 min",
+    "servings": "2",
+    "equipment": [
+      "Frying pan",
+      "Baking tray",
+      "Mixing bowl",
+      "Whisk",
+      "Chopping board",
+      "Sharp knife",
+      "Meat thermometer (optional)",
+      "Mortar and pestle or knife (for anchovy paste)"
+    ],
+    "ingredients": [
+      "--- Chicken ---",
+      "2 chicken breasts",
+      "1 tbsp olive oil (for chicken)",
+      "1/2 tsp salt",
+      "1/3 tsp black pepper",
+      "1/2 tsp garlic powder",
+      "--- Caesar Dressing ---",
+      "2 garlic cloves, minced",
+      "2 anchovy fillets (or 1 tsp anchovy paste)",
+      "1 large egg yolk",
+      "2 tbsp fresh lemon juice",
+      "1 tsp Dijon mustard",
+      "1 tsp Worcestershire sauce",
+      "1/3 cup extra virgin olive oil",
+      "1/3 cup finely grated Parmesan",
+      "1/3 tsp salt",
+      "1/3 tsp black pepper",
+      "--- Croutons ---",
+      "2 thick slices crusty bread, cubed",
+      "2 tbsp olive oil (for croutons)",
+      "Pinch of salt",
+      "--- Salad ---",
+      "1 large head of romaine lettuce"
+    ],
+    "steps": [
+      "Butterfly or pound chicken breasts to an even thickness (about 1.5cm). Season both sides with salt, pepper, and garlic powder.",
+      "Heat 1 tbsp olive oil in a pan over medium-high heat until it shimmers. Place the chicken in and don't move it until it gets a golden crust on the first side.",
+      "Flip and cook the other side until cooked through (no pink in the centre, 74°C / 165°F at the thickest part). Move to a board and let it rest while you prep everything else.",
+      "Preheat oven to 200°C / 400°F. Toss cubed bread with 2 tbsp olive oil and a pinch of salt. Spread on a baking tray in a single layer and bake until golden and crunchy, tossing halfway through.",
+      "While croutons bake, mash anchovy fillets and minced garlic together into a paste using the flat of your knife or a mortar and pestle.",
+      "Whisk together the anchovy-garlic paste, egg yolk, lemon juice, Dijon mustard, and Worcestershire sauce until smooth. Slowly drizzle in the olive oil while whisking constantly until thick and creamy. Stir in half the Parmesan, season with salt and pepper. Taste and adjust.",
+      "Wash and dry the romaine lettuce, tear or chop into bite-sized pieces.",
+      "Slice the rested chicken against the grain. Toss the romaine with the dressing until every leaf is coated. Top with sliced chicken, croutons, and remaining Parmesan. Serve straight away."
+    ],
+    "tags": [
+      "high-protein"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "The biggest trick with chicken breast is not overcooking it. Butterfly or pound to an even thickness so it cooks evenly. Let it rest before slicing so juices stay in the meat. If raw egg yolk makes you nervous, use 2 tbsp mayo instead for a similar creamy dressing."
+  },
+  {
+    "id": "r1744451200005",
+    "name": "Gastritis-Friendly Buddha Bowl",
+    "meal": "dinner",
+    "cuisine": "",
+    "difficulty": "Easy",
+    "prepTime": "15 min",
+    "cookTime": "20 min",
+    "servings": "2",
+    "equipment": [
+      "Baking tray",
+      "Parchment paper",
+      "Saucepan (for rice)",
+      "Small bowl (for dressing)",
+      "Whisk",
+      "Chopping board"
+    ],
+    "ingredients": [
+      "--- Base ---",
+      "150g white or brown rice",
+      "--- Roasted Veg ---",
+      "1 medium sweet potato, cubed",
+      "150g red cabbage, sliced into wedges",
+      "1 1/2 tbsp extra virgin olive oil",
+      "1/2 tsp ground cumin",
+      "1/3 tsp ground turmeric",
+      "1 pinch salt",
+      "--- Chicken ---",
+      "2 chicken breasts",
+      "A little olive oil, salt, cumin, and turmeric",
+      "--- Fresh Toppings ---",
+      "100g cucumber, diced",
+      "1 ripe avocado, sliced",
+      "60g shredded carrots",
+      "--- Tahini Dressing ---",
+      "2 tbsp tahini",
+      "1 tbsp maple syrup",
+      "2 tbsp warm water"
+    ],
+    "steps": [
+      "Preheat oven to 200°C / 400°F.",
+      "Toss cubed sweet potato and red cabbage wedges with olive oil, cumin, turmeric, and salt. Spread on a lined baking tray in a single layer.",
+      "Rub chicken breasts with a little olive oil, salt, cumin, and turmeric. Place on the same tray or a separate one. Put everything in the oven.",
+      "Roast for about 20 minutes. Chicken is done when cooked through with no pink in the middle. Sweet potato should be soft and golden. Pull the chicken out first if the veg needs a few more minutes.",
+      "Take the chicken out and let it rest for 5 minutes before slicing. This keeps it juicy.",
+      "While things roast, cook 150g rice according to package directions.",
+      "Whisk together tahini, maple syrup, and warm water until smooth and drizzly. Add a touch more water if it's too thick.",
+      "Divide rice between bowls. Arrange sliced chicken, roasted sweet potato, roasted red cabbage, diced cucumber, sliced avocado, and shredded carrots in sections on top. Drizzle generously with the tahini dressing."
+    ],
+    "tags": [
+      "gastritis-friendly",
+      "dairy-free",
+      "gluten-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "Avoids main gastritis triggers: citrus, tomatoes, raw onion and garlic, chilli, vinegar, and high-fat fried foods. Cumin and turmeric are gentle and anti-inflammatory. If even mild spices cause flare-ups, skip them and just season with salt. Roasting the red cabbage softens it and makes it much easier to digest than raw."
+  },
+  {
+    "id": "r1744451200006",
+    "name": "Puff Pastry Apple Turnovers",
+    "meal": "desserts",
+    "cuisine": "British",
+    "difficulty": "Easy",
+    "prepTime": "15 min",
+    "cookTime": "20 min",
+    "servings": "4 turnovers",
+    "equipment": [
+      "Frying pan",
+      "Baking tray",
+      "Baking paper",
+      "Rolling pin",
+      "Pastry brush",
+      "Fork (for sealing edges)",
+      "Knife"
+    ],
+    "ingredients": [
+      "--- Apple Filling ---",
+      "3 apples, peeled and diced",
+      "1 tbsp butter",
+      "3 tbsp caster sugar",
+      "1/2 tsp ground cinnamon",
+      "1 tbsp lemon juice",
+      "--- Pastry ---",
+      "1 puff pastry sheet",
+      "1 egg, beaten (for egg wash)",
+      "1 tbsp demerara sugar (for topping)"
+    ],
+    "steps": [
+      "Melt butter in a pan over medium heat. Add diced apples, caster sugar, cinnamon, and lemon juice. Stir and cook until the apples are softened but still holding their shape.",
+      "Take the pan off the heat and let the apple filling cool completely. This is important so it doesn't melt the pastry when you assemble.",
+      "Preheat oven to 200°C (fan). Line a baking tray with baking paper.",
+      "Roll out the puff pastry sheet on a lightly floured surface and cut into 4 equal squares (roughly 12cm / 5 inches each).",
+      "Spoon cooled apple filling onto one half of each pastry square, leaving a border around the edges. Fold the pastry over into a triangle and press the edges firmly with a fork to seal.",
+      "Place turnovers on the lined tray. Brush tops with beaten egg and sprinkle with demerara sugar. Cut 2 small slits in the top of each to let steam escape.",
+      "Bake until puffed up and deep golden brown."
+    ],
+    "tags": [
+      "vegetarian"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "Best eaten warm! If your apples are quite tart (like Bramley), add an extra tablespoon of sugar to the filling. Granny Smiths or Braeburns work really well here."
+  },
+  {
+    "id": "r1744451200007",
+    "name": "Sheet Pan Salmon with Asparagus & Potatoes",
+    "meal": "dinner",
+    "cuisine": "",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "30 min",
+    "servings": "2",
+    "equipment": [
+      "Baking sheet",
+      "Foil or parchment paper",
+      "Small mixing bowl",
+      "Whisk"
+    ],
+    "ingredients": [
+      "--- Main ---",
+      "300g salmon fillet, cut into 2 portions",
+      "300g baby potatoes, halved",
+      "150g asparagus, ends trimmed",
+      "20ml olive oil",
+      "--- Honey-Dijon Butter ---",
+      "2 tbsp (30g) butter, melted",
+      "2-3 cloves garlic, minced",
+      "1 tbsp (20g) honey",
+      "1 tsp (5g) Dijon mustard",
+      "1 lemon",
+      "DIY Italian seasoning (1g dried basil, 1g dried oregano, 0.5g dried thyme, 0.5g dried rosemary)",
+      "Salt and pepper to taste",
+      "Fresh herbs for garnish (optional)"
+    ],
+    "steps": [
+      "Heat oven to 200°C. Line a baking sheet with foil or parchment.",
+      "Toss potatoes with 10ml olive oil, salt, and pepper. Spread on sheet pan.",
+      "Bake potatoes for 15-20 minutes until starting to soften.",
+      "In a small bowl, mix the melted butter, remaining 10ml olive oil, minced garlic, honey, Dijon mustard, juice from half the lemon, your DIY Italian seasoning, salt and pepper.",
+      "Push potatoes to one side of the pan. Place salmon in the center and asparagus on the other side.",
+      "Pour the honey-Dijon butter mixture over everything, making sure salmon is well coated.",
+      "Slice the remaining lemon half and place slices on top of the salmon.",
+      "Return pan to oven and bake for 10-15 minutes until salmon flakes easily and asparagus is tender.",
+      "Sprinkle with fresh herbs if using and serve right away."
+    ],
+    "tags": [
+      "high-protein",
+      "gluten-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200008",
+    "name": "Seeded Goats' Cheese & Sweet Potato Salad",
+    "meal": "lunch",
+    "cuisine": "",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "25 min",
+    "servings": "2",
+    "equipment": [
+      "Baking tray (for veg)",
+      "Separate baking tray (for seeds)",
+      "Large mixing bowl",
+      "Chopping board",
+      "Kitchen paper"
+    ],
+    "ingredients": [
+      "2 medium sweet potatoes, chopped into bite-sized pieces (skins on)",
+      "2 red onions, quartered (skins and root on)",
+      "1 pine nut & seed mix sachet (30g)",
+      "1 bag chopped dates (30g)",
+      "50g baby leaf salad",
+      "15ml white wine vinegar",
+      "75g soft goats' cheese",
+      "Olive oil",
+      "Salt and pepper"
+    ],
+    "steps": [
+      "Preheat oven to 220°C / 200°C fan / Gas 7. Chop sweet potatoes (skins on) into large bite-sized pieces. Cut red onions into quarters, leaving skins and root on so they don't dry out or fall apart.",
+      "Add sweet potato and onion quarters to a baking tray. Drizzle with olive oil, season with salt and pepper. Roast for 20-30 minutes until onion is tender and sweet potato is cooked and starting to crisp.",
+      "While veg roasts, wash baby leaf salad and pat dry with kitchen paper. Add to a large mixing bowl.",
+      "Add pine nut & seed mix to a separate baking tray. Toast in the oven for 5 minutes until seeds have darkened slightly. Remove and leave to cool. Watch these like a hawk so they don't burn!",
+      "Make the dressing: combine white wine vinegar with 2 tbsp olive oil, season with salt and pepper.",
+      "Chop the dates very finely. Grind generous pepper onto a board, add toasted seeds and chopped dates, roughly chop the lot together to make the fruity seed mix. Press goats' cheese rounds into the mix so it sticks (save any leftover mix for later).",
+      "Once veg is done, cut roots off roasted onion quarters and peel off skins. Separate into petals. Add onion petals, sweet potato, and remaining fruity seed mix to the salad bowl.",
+      "Break the seeded goats' cheese rounds into rough pieces and serve over the salad. Drizzle dressing over the top."
+    ],
+    "tags": [
+      "vegetarian"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200009",
+    "name": "Honey Mustard Chicken Tray Bake",
+    "meal": "dinner",
+    "cuisine": "British",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "55 min",
+    "servings": "2",
+    "equipment": [
+      "Baking tray",
+      "Tin foil",
+      "Small mixing bowl",
+      "Knife and chopping board"
+    ],
+    "ingredients": [
+      "--- Main ---",
+      "320g skin-on chicken thighs",
+      "350g waxy potatoes, cut into small pieces",
+      "160g Chantenay carrots",
+      "2 red onions, cut into wedges",
+      "Spring greens (a few handfuls)",
+      "Olive oil",
+      "Salt and pepper",
+      "--- Honey Mustard Marinade ---",
+      "25g honey",
+      "42g wholegrain mustard",
+      "15ml red wine vinegar"
+    ],
+    "steps": [
+      "Preheat oven to 220°C / 200°C fan / gas 7. Peel and cut the red onions into wedges. Cut the waxy potatoes into small pieces.",
+      "Mix the honey, wholegrain mustard, and red wine vinegar in a small bowl to make the honey mustard marinade.",
+      "Add the chicken thighs skin-side up to one side of a foil-lined baking tray. Add the potatoes, onion wedges, and carrots to the other half.",
+      "Drizzle everything with olive oil, season with salt and pepper. Put the tray in the oven for 20 minutes.",
+      "After 20 minutes, drizzle half of the honey mustard marinade over the chicken thighs. Return to the oven for a further 25 minutes until everything is cooked through (no pink meat!).",
+      "Meanwhile, wash the spring greens, rip off the leaves (discard tough stalks), layer outer leaves, roll up and slice into thin strips.",
+      "Once everything is cooked, add the sliced spring greens to the tray and mix through the vegetables. Drizzle the remaining marinade over the chicken. Return to the oven for 3 minutes until greens are wilted. Keep an eye on them so they don't burn!",
+      "Serve the tray bake, drizzling everything with any remaining marinade from the foil."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "If cooking for 4, use two trays! The honey mustard marinade goes on in two stages: half after the first 20 min, then the rest at the very end."
+  },
+  {
+    "id": "r1744451200010",
+    "name": "Lemon Garlic Chicken with Cucumber-Avocado Salad & Green Goddess Sauce",
+    "meal": "dinner",
+    "cuisine": "",
+    "difficulty": "Easy",
+    "prepTime": "25 min",
+    "cookTime": "15 min",
+    "servings": "2-4",
+    "equipment": [
+      "Large frying pan",
+      "Mixing bowls",
+      "Blender or food processor (for sauce)",
+      "Chopping board",
+      "Knife"
+    ],
+    "ingredients": [
+      "--- Chicken ---",
+      "4 chicken thighs",
+      "Juice of 1 large lemon",
+      "1 tbsp garlic powder",
+      "1 tbsp onion powder",
+      "2 tbsp olive oil",
+      "Salt and pepper to taste",
+      "1 red onion, thinly sliced",
+      "--- Green Goddess Sauce ---",
+      "Handful of fresh dill",
+      "Handful of fresh cilantro",
+      "Handful of fresh mint",
+      "3 tbsp mayonnaise",
+      "2 tbsp crème fraîche",
+      "Juice of 1/2 lemon",
+      "1 tbsp olive oil",
+      "Salt and pepper to taste",
+      "--- Cucumber-Avocado Salad ---",
+      "6 Persian cucumbers, finely diced",
+      "1/2 red onion, finely diced",
+      "1 avocado, cubed",
+      "Salt and pepper to taste",
+      "Optional: squeeze of lemon juice",
+      "--- For Serving ---",
+      "Steamed sushi rice (plain, no vinegar)"
+    ],
+    "steps": [
+      "Marinate the chicken: mix lemon juice, garlic powder, onion powder, olive oil, salt and pepper in a bowl. Add chicken thighs and coat evenly. Let marinate for at least 20 minutes (or up to a few hours in the fridge).",
+      "Heat a large pan over medium heat with a little oil. Lay in the marinated chicken thighs. Cook for about 15 minutes total, flipping halfway, until golden and cooked through. In the last few minutes, add the sliced red onion to soften in the pan juices.",
+      "Make the Green Goddess Sauce: blend or whisk together dill, cilantro, mint, mayonnaise, crème fraîche, lemon juice, olive oil, salt and pepper until smooth. Adjust seasoning to taste.",
+      "Prepare the salad: combine diced cucumber, red onion, and avocado in a bowl. Season with salt, pepper, and a squeeze of lemon if desired.",
+      "Serve: spoon sushi rice onto each plate, top with chicken and sautéed onions, add cucumber-avocado salad on the side, and drizzle or dollop the Green Goddess sauce on top."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200011",
+    "name": "Crispy Prawn Tacos with Coriander Mayo",
+    "meal": "dinner",
+    "cuisine": "Mexican",
+    "difficulty": "Easy",
+    "prepTime": "15 min",
+    "cookTime": "15 min",
+    "servings": "2",
+    "equipment": [
+      "Large frying pan (non-stick)",
+      "Baking tray",
+      "Pestle & mortar or food processor",
+      "3 shallow bowls/plates (for breading station)",
+      "Mixing bowl"
+    ],
+    "ingredients": [
+      "--- Crispy Prawns ---",
+      "180g raw peeled king prawns",
+      "1 egg",
+      "60g panko breadcrumbs",
+      "3 tbsp flour",
+      "1/2 tsp cayenne pepper",
+      "Vegetable oil (for frying)",
+      "Salt and pepper",
+      "--- Coriander Mayo ---",
+      "20g fresh coriander (stalks included)",
+      "2 mayo sachets (52ml)",
+      "1 lime",
+      "Olive oil (drizzle)",
+      "Salt and pepper",
+      "--- Tomato Salsa ---",
+      "1 shallot, finely diced",
+      "Tomatoes, finely diced",
+      "1/2 tsp chilli flakes",
+      "Juice of half a lime",
+      "Salt and pepper",
+      "--- To Serve ---",
+      "6 white tortilla wraps",
+      "1 little gem lettuce, shredded"
+    ],
+    "steps": [
+      "Preheat oven to 200°C / 180°C fan / gas 6. Dice the shallot, tomato, and finely chop the coriander (stalks included). Shred the lettuce.",
+      "Make the tomato salsa: combine diced shallot, tomato, chilli flakes, and most of the coriander in a bowl. Season with salt and pepper, squeeze in half the lime juice, and mix well.",
+      "Make the lime paste: add remaining coriander to a pestle & mortar with a drizzle of olive oil. Bash together, add 1 tbsp lime juice, season with salt and pepper until smooth.",
+      "Mix the lime paste with the mayo and a drizzle of olive oil to loosen. This is your coriander mayo.",
+      "Set up the breading station: beat egg in a shallow bowl, add seasoned flour (with cayenne, salt, pepper) to a plate, and panko breadcrumbs to another plate. Coat prawns in flour, then egg, then breadcrumbs, pressing down firmly.",
+      "Heat 3 tbsp vegetable oil in a large pan over medium heat. Cook breaded prawns for 1-2 minutes on each side until golden. Do this in batches if needed.",
+      "Warm the tortillas in the oven for 2-3 minutes on a baking tray.",
+      "Assemble: tortilla, lettuce, crispy prawns, tomato salsa, and a drizzle of coriander mayo."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "Go easy on the cayenne and chilli flakes if you can't handle the heat. Double everything for 4 people."
+  },
+  {
+    "id": "r1744451200012",
+    "name": "Smoky Beef, Pineapple & Red Onion Tacos",
+    "meal": "dinner",
+    "cuisine": "Mexican",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "25 min",
+    "servings": "2",
+    "equipment": [
+      "Large frying pan (non-stick)",
+      "Baking tray",
+      "Mixing bowls",
+      "Wooden spoon",
+      "Chopping board"
+    ],
+    "ingredients": [
+      "--- Smoky Beef ---",
+      "250g British beef mince",
+      "2 garlic cloves, finely chopped or grated",
+      "1 brown/red onion (diced portion)",
+      "2 tsp smoked paprika",
+      "1/2 tsp cayenne pepper",
+      "15ml soy sauce",
+      "Vegetable oil",
+      "Salt and pepper",
+      "--- Quick-Pickled Red Onion ---",
+      "3-6 thin rings from a red onion",
+      "15ml red wine vinegar",
+      "--- Herby Mayo ---",
+      "50ml mayonnaise",
+      "5g fresh coriander, finely chopped (stalks included)",
+      "2 tsp cold water",
+      "--- Pineapple Salsa ---",
+      "220g canned pineapple, drained and diced",
+      "1 gem lettuce (inner core shredded, outer leaves whole)",
+      "1 tsp dried chilli flakes",
+      "Black pepper",
+      "--- To Serve ---",
+      "6 plain tortillas"
+    ],
+    "steps": [
+      "Preheat oven to 180°C / 160°C fan / gas 6. Slice 3-6 thin rings off the red onion and add to a bowl with the red wine vinegar to pickle. Dice the remaining onion.",
+      "Heat a pan with a drizzle of vegetable oil over medium heat. Cook the diced onion with a pinch of salt for 8-10 minutes until softened.",
+      "Finely chop the coriander (stalks included). Mix the mayo with 2 tsp cold water and the chopped coriander for your herby mayo.",
+      "Add the garlic and beef mince to the softened onion. Break it up with a wooden spoon. Add smoked paprika, cayenne, and soy sauce. Cook for 8-10 minutes until browned, cooked through (no pink!) and starting to crisp.",
+      "Shred the inner lettuce core. Drain and dice the pineapple. Combine shredded lettuce, pineapple, and chilli flakes with plenty of black pepper for your pineapple salsa.",
+      "Warm tortillas on a baking tray in the oven for 2 minutes.",
+      "Drain the pickled onion rings. Assemble: tortilla, herby mayo, lettuce leaves, smoky beef, pineapple salsa, and pickled red onion rings on top."
+    ],
+    "tags": [
+      "dairy-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "Don't chuck the pineapple juice! Use it in smoothies, cakes, or marinades. Go easy on cayenne and chilli flakes if spice isn't your thing. Double everything for 4."
+  },
+  {
+    "id": "r1744451200013",
+    "name": "Simply Perfect Beef Spag Bol",
+    "meal": "dinner",
+    "cuisine": "Italian",
+    "difficulty": "Easy",
+    "prepTime": "5 min",
+    "cookTime": "25 min",
+    "servings": "2",
+    "equipment": [
+      "Large frying pan (non-stick)",
+      "Large saucepan (for pasta)",
+      "Wooden spoon",
+      "Grater",
+      "Chopping board"
+    ],
+    "ingredients": [
+      "--- Bolognese ---",
+      "250g British beef mince",
+      "1 brown onion, finely chopped",
+      "1 carrot, peeled and finely chopped",
+      "2 garlic cloves, finely chopped or grated",
+      "16g tomato paste",
+      "200g canned tomato frito",
+      "11g beef stock mix",
+      "15ml Henderson's Relish",
+      "8ml soy sauce",
+      "100ml boiled water",
+      "1 tsp dried basil",
+      "1 tsp dried oregano",
+      "Olive oil",
+      "Salt and pepper",
+      "--- To Serve ---",
+      "190g spaghetti",
+      "40g cheddar cheese, grated",
+      "5g fresh basil, finely chopped (stalks included)"
+    ],
+    "steps": [
+      "Boil a kettle. Finely chop the onion and carrot.",
+      "Heat a large pan with a drizzle of olive oil over medium-high heat. Add the onion and carrot with a pinch of salt. Cook for 3-4 minutes until beginning to soften.",
+      "Add the beef mince to the pan, increase heat to high. Cook for 3-4 minutes, breaking it up with a wooden spoon until browned all over.",
+      "Meanwhile, cook the spaghetti in a pot of boiling salted water for 8-10 minutes until it has a slight bite. Drain and return to the pot.",
+      "Dissolve the beef stock mix, Henderson's Relish, and soy sauce in 100ml boiled water.",
+      "Add the chopped garlic, tomato paste, stock mixture, tomato frito, dried basil, and dried oregano to the beef pan. Season with black pepper. Bring to the boil and cook for 4-5 minutes until thickened.",
+      "Serve the bolognese over spaghetti, topped with grated cheddar and chopped fresh basil."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "The Henderson's Relish and soy sauce are the secret weapons here. They add a deep savoury depth without being overpowering."
+  },
+  {
+    "id": "r1744451200014",
+    "name": "Chicken Ruby (Dishoom)",
+    "meal": "dinner",
+    "cuisine": "Indian",
+    "difficulty": "Medium",
+    "prepTime": "30 min + overnight marinade",
+    "cookTime": "45 min",
+    "servings": "4",
+    "equipment": [
+      "Large saucepan or deep pan",
+      "Mixing bowl (for marinade)",
+      "Grill or grill pan",
+      "Chopping board"
+    ],
+    "ingredients": [
+      "--- Chicken Marinade ---",
+      "700g chicken thighs, cut into thirds",
+      "1/4 tsp fresh ginger, finely diced",
+      "5 cloves garlic, crushed",
+      "1 tsp deggi mirch chilli powder",
+      "1 tsp ground cumin",
+      "1/2 tsp garam masala",
+      "Juice of 1/4 lime",
+      "1/4 cup Greek yogurt",
+      "--- Curry ---",
+      "4 cloves garlic, chopped",
+      "1/2 tsp fresh ginger, grated",
+      "1/2 cup neutral oil",
+      "1 bay leaf",
+      "6 green cardamom pods",
+      "2 cinnamon sticks",
+      "800g chopped tomatoes (Mutti recommended)",
+      "1 tbsp butter",
+      "1 tsp deggi mirch chilli powder",
+      "1/2 tsp garam masala",
+      "1/2 tsp ground cumin",
+      "1/4 cup double cream",
+      "--- To Serve ---",
+      "Basmati rice (150g rice to 225ml water, boil 15 min)",
+      "Naan bread"
+    ],
+    "steps": [
+      "Mix all marinade ingredients with the chicken. Coat well. Cover and refrigerate for at least 6 hours or overnight.",
+      "Crush the ginger and 2 garlic cloves together into a paste. Set aside.",
+      "Fry the remaining chopped garlic in the oil until golden. Remove the garlic and reserve it for later.",
+      "In the same oil, cook the bay leaf, cardamom pods, and cinnamon sticks for 1 minute until fragrant.",
+      "Add the ginger-garlic paste to the pan and cook for 5 minutes. Add the chopped tomatoes and reduce for 15 minutes.",
+      "Add the butter, deggi mirch, garam masala, ground cumin, and the reserved fried garlic. Cook for 10-15 minutes, then stir in the double cream.",
+      "Grill the marinated chicken for 8-10 minutes until charred on the outside and cooked through.",
+      "Add the grilled chicken to the curry and simmer together for 5 minutes. Serve with basmati rice and naan."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "https://www.instagram.com/reel/DF5roqVIyhu/",
+    "notes": "Marinate overnight for best results. Adjust chilli powder for heat. For a richer sauce, add an extra tablespoon of butter at the end. Basmati recipe: 150g rice to 225ml water, boil for 15 minutes."
+  },
+  {
+    "id": "r1744451200015",
+    "name": "Miso Salmon, Rice & Cucumber Salad",
+    "meal": "dinner",
+    "cuisine": "Japanese",
+    "difficulty": "Easy",
+    "prepTime": "20 min + 30 min marinating",
+    "cookTime": "20 min",
+    "servings": "2",
+    "equipment": [
+      "Baking sheet",
+      "Parchment paper or foil",
+      "Saucepan with lid (for rice)",
+      "Small mixing bowls",
+      "Whisk",
+      "Colander",
+      "Pastry brush"
+    ],
+    "ingredients": [
+      "--- Salmon + Marinade ---",
+      "2 salmon fillets (170g each)",
+      "34g white miso paste",
+      "30g mirin",
+      "1 1/2 tbsp honey",
+      "1 tbsp tamari soy sauce",
+      "1/2 tbsp sesame oil",
+      "Optional: sliced green onions and sesame seeds for garnish",
+      "--- Sushi Rice ---",
+      "150g sushi rice",
+      "180g water",
+      "--- Cucumber Salad ---",
+      "6 Persian cucumbers",
+      "1 tsp kosher salt",
+      "2 green onions, thinly sliced",
+      "4g fresh cilantro, finely chopped",
+      "2 tsp toasted white sesame seeds (plus extra for garnish)",
+      "1 tbsp sesame oil",
+      "1 tbsp tamari soy sauce",
+      "1 tbsp rice vinegar",
+      "1 tbsp honey",
+      "2 garlic cloves, finely chopped",
+      "1 tsp chili crisp or chili oil"
+    ],
+    "steps": [
+      "Prepare the miso marinade: whisk together miso paste, mirin, honey, tamari, and sesame oil in a small bowl.",
+      "Pat salmon fillets dry, place in a shallow dish. Reserve 1 tbsp of the marinade. Pour the rest over the salmon, coat well. Refrigerate for 30-60 minutes.",
+      "Cook the rice: rinse 3 times, soak for 10 minutes. Add 180g water, bring to a boil, reduce heat and cook for 18 minutes. Remove from heat and let rest 10 minutes.",
+      "Preheat the oven broiler. Line a baking sheet with parchment or foil. Place salmon on top, position rack 5-6 inches below the broiler. Cook for 7-9 minutes until the top is slightly charred and the centre is just cooked through.",
+      "Brush the reserved marinade over the salmon while still hot.",
+      "Make the cucumber salad: smash and slice cucumbers, sprinkle with salt, massage gently and let sit 10-15 minutes. Rinse with cold water and drain well. Whisk together sesame oil, tamari, rice vinegar, honey, garlic, and chili crisp. Combine cucumbers, green onions, cilantro, and sesame seeds. Toss with the dressing and garnish with extra sesame seeds.",
+      "Plate the rice, top with salmon, and serve cucumber salad on the side. Garnish with green onions and sesame seeds."
+    ],
+    "tags": [
+      "high-protein",
+      "dairy-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200016",
+    "name": "Gochujang Peanut Noodles",
+    "meal": "dinner",
+    "cuisine": "Korean",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "10 min",
+    "servings": "2",
+    "equipment": [
+      "Saucepan",
+      "Small mixing bowl",
+      "Whisk"
+    ],
+    "ingredients": [
+      "--- Noodles ---",
+      "4 oz (115g) brown rice noodles",
+      "1 cup thinly sliced red cabbage",
+      "3/4-1 cup edamame",
+      "1 cup broccoli florets, cut into small bite-sized pieces",
+      "2 tbsp chopped cilantro",
+      "--- Gochujang Peanut Sauce ---",
+      "1/4 cup natural peanut butter",
+      "Juice of 1 lime",
+      "2 tsp toasted sesame oil (plus 1 tsp for noodles)",
+      "2 tbsp gochujang sauce",
+      "2 tbsp tamari",
+      "2 tbsp maple syrup",
+      "2 tsp garlic powder",
+      "4 tsp ginger paste",
+      "1 1/2 - 3 tbsp water"
+    ],
+    "steps": [
+      "Cook noodles according to package directions. Drain and rinse in warm water. Drain well and drizzle with 1 tsp toasted sesame oil.",
+      "Whisk all sauce ingredients together in a small bowl, starting with 1 tbsp water and adding more slowly until desired consistency.",
+      "Serve noodles with the sauce, red cabbage, edamame, broccoli florets, and cilantro."
+    ],
+    "tags": [
+      "vegan",
+      "dairy-free",
+      "gluten-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200017",
+    "name": "Saffron, Crab & Clotted Cream Risotto",
+    "meal": "dinner",
+    "cuisine": "Italian",
+    "difficulty": "Medium",
+    "prepTime": "5 min",
+    "cookTime": "40 min",
+    "servings": "2",
+    "equipment": [
+      "Large non-stick pan",
+      "Wooden spoon",
+      "Small mixing bowl",
+      "Whisk"
+    ],
+    "ingredients": [
+      "160g arborio rice",
+      "1 vegetable stock mix sachet (11g)",
+      "600ml boiled water",
+      "1 pinch saffron",
+      "100g white and brown Orkney crab meat",
+      "40g Cornish clotted cream",
+      "1 brown onion, finely diced",
+      "3 garlic cloves, finely chopped or grated",
+      "1/2 tsp dried chilli flakes",
+      "1 lemon",
+      "50g rocket",
+      "Olive oil, salt and pepper"
+    ],
+    "steps": [
+      "Boil a kettle. Finely dice the onion and chop or grate the garlic.",
+      "Heat a large pan with olive oil over medium heat. Add the onion and cook 3 minutes until softened but not coloured.",
+      "Dissolve the veg stock mix in 600ml boiled water. Add the saffron and leave to infuse.",
+      "Add the garlic, arborio rice, and chilli flakes to the onion. Cook for 1 minute, stirring to coat the grains. Add 1/3 of the saffron stock and stir continuously until absorbed. Continue adding stock a ladle at a time, stirring continuously for 25-30 minutes until all stock is absorbed and rice is cooked.",
+      "While the rice cooks, make the lemon dressing: juice half a lemon into a bowl, add 2 tbsp olive oil, season with salt and pepper, whisk to combine. Cut remaining lemon into wedges.",
+      "Remove risotto from heat. Season with salt. If it looks dry, add a splash of water (should be porridge-like). Stir through the crab meat and clotted cream.",
+      "Dress the rocket with the lemon dressing. Serve the risotto in bowls with dressed salad and a lemon wedge. Season generously with pepper and a drizzle of olive oil."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "The risotto should be porridge-like in consistency. Keep stirring!"
+  },
+  {
+    "id": "r1744451200018",
+    "name": "Honey & Sriracha Hot Wings",
+    "meal": "dinner",
+    "cuisine": "",
+    "difficulty": "Easy",
+    "prepTime": "10 min + 2hr chill",
+    "cookTime": "50 min",
+    "servings": "4",
+    "equipment": [
+      "Large shallow roasting tin",
+      "Baking parchment",
+      "Pastry brush",
+      "Large bowl",
+      "Small bowl"
+    ],
+    "ingredients": [
+      "16 chicken wings (~1.5kg)",
+      "1 tsp smoked paprika",
+      "1 tsp garlic granules",
+      "2 tbsp baking powder",
+      "1 tbsp cornflour",
+      "1 tsp sea salt flakes",
+      "Black pepper",
+      "2 tsp sesame seeds (optional)",
+      "4 tbsp sriracha",
+      "3 tbsp honey",
+      "1 tbsp cider vinegar"
+    ],
+    "steps": [
+      "Mix the paprika, garlic granules, baking powder, cornflour, sea salt, and a good grinding of black pepper together. Tip the wings into a large bowl, scatter half the seasoning and toss. Add the rest and toss again until completely coated. Cover and chill for at least 2 hours, or up to 24 hours.",
+      "Heat oven to 230°C / 210°C fan / gas 8. Line a large shallow roasting tin with baking parchment.",
+      "Arrange wings in a single layer, fleshy-side down. Roast for 20 minutes, then flip and roast another 25-30 minutes until the skin is blistered and crisp.",
+      "Whisk the glaze ingredients together in a small bowl until smooth.",
+      "Remove wings from oven and brush liberally with the glaze. Scatter sesame seeds if using. Roast for another 8-10 minutes until the glaze is bubbling and starting to char.",
+      "Serve straight from the tin or pile onto a plate."
+    ],
+    "tags": [
+      "dairy-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "The baking powder is the secret to crispy skin without deep frying. Chill time makes a big difference so don't skip it."
+  },
+  {
+    "id": "r1744451200019",
+    "name": "Carrot Beetroot Couscous Salad",
+    "meal": "lunch",
+    "cuisine": "Middle Eastern",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "20 min",
+    "servings": "2",
+    "equipment": [
+      "Large baking tray",
+      "Small frying pan",
+      "Mixing bowls",
+      "Fork (for fluffing couscous)"
+    ],
+    "ingredients": [
+      "--- Roasted Veg ---",
+      "250g cooked beetroot (reserve the juice!)",
+      "2 carrots, peeled and cut into batons",
+      "1 tsp smoked paprika",
+      "60g feta",
+      "25g honey",
+      "Olive oil, salt and pepper",
+      "--- Harissa Couscous ---",
+      "120g couscous",
+      "5.5g vegetable stock mix",
+      "200ml boiled water",
+      "40g harissa paste",
+      "--- Toppings & Dressing ---",
+      "30g pumpkin seeds, toasted",
+      "10g fresh coriander, finely chopped (stalks included)",
+      "15ml balsamic vinegar",
+      "Reserved beetroot juice",
+      "2 tbsp olive oil"
+    ],
+    "steps": [
+      "Preheat oven to 220°C / 200°C fan / gas 7. Boil a kettle. Remove beetroot from packaging and reserve the juice. Cut each beetroot into 8 wedges. Cut carrots into batons.",
+      "Add beetroot and carrot to a baking tray. Sprinkle with smoked paprika, drizzle with olive oil, season with salt and pepper. Roast for 15 minutes until carrots are almost tender.",
+      "Meanwhile, dissolve the veg stock mix in 200ml boiled water. Stir in the harissa paste. Add the couscous, cover, and set aside.",
+      "Toast pumpkin seeds in a dry pan over medium-high heat for 3 minutes. Watch them like a hawk so they don't burn! Set aside.",
+      "Finely chop the coriander (stalks included).",
+      "After the initial 15 minutes, crumble feta over the roasted veg and drizzle with honey. Return to the oven for 5 more minutes.",
+      "Make the dressing: combine reserved beetroot juice, balsamic vinegar, half the chopped coriander, and 2 tbsp olive oil with salt and pepper. Fluff the couscous with a fork. Serve the roasted veg and feta over the couscous. Drizzle with the dressing and garnish with remaining coriander and toasted pumpkin seeds."
+    ],
+    "tags": [
+      "vegetarian"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "Go easy on the harissa if you can't handle the heat."
+  },
+  {
+    "id": "r1744451200020",
+    "name": "Kale Slaw",
+    "meal": "lunch",
+    "cuisine": "",
+    "difficulty": "Easy",
+    "prepTime": "15 min + 20 min chill",
+    "cookTime": "0 min",
+    "servings": "4",
+    "equipment": [
+      "Large mixing bowl",
+      "Small mixing bowl",
+      "Mandolin slicer (optional)",
+      "Chopping board",
+      "Knife"
+    ],
+    "ingredients": [
+      "--- Kale Slaw ---",
+      "1 large bunch kale, leaves removed from stalks and shredded",
+      "1/4 head green cabbage, shredded",
+      "1 large carrot, julienned",
+      "1/2 red onion, julienned",
+      "1 tbsp parsley (optional)",
+      "Salt and pepper",
+      "--- Creamy Dressing ---",
+      "1/2 cup mayonnaise",
+      "1/2 cup Greek yogurt",
+      "1 tbsp Dijon mustard",
+      "1 garlic clove, minced",
+      "Juice of 1/2 lemon (or 1 tbsp white wine vinegar)",
+      "2 tbsp chopped chives",
+      "Salt and pepper"
+    ],
+    "steps": [
+      "Make the dressing: mix Greek yogurt, mayo, lemon juice, Dijon, and chopped chives together in a bowl. Season with salt and pepper. Refrigerate until ready to use.",
+      "Shred the cabbage: cut into quarters, remove the core, then shred finely.",
+      "Shred the kale: remove leaves from stalks, then thinly slice.",
+      "Julienne the carrot (by hand or with a mandolin). Thinly slice the red onion.",
+      "Mix all the vegetables in a large bowl. Add the dressing and toss until properly coated.",
+      "Sprinkle with chopped parsley, season with salt and pepper. Refrigerate for 20 minutes before serving."
+    ],
+    "tags": [
+      "vegetarian"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200021",
+    "name": "Crab Mac 'N' Cheese",
+    "meal": "dinner",
+    "cuisine": "British",
+    "difficulty": "Medium",
+    "prepTime": "10 min",
+    "cookTime": "35 min",
+    "servings": "2",
+    "equipment": [
+      "Large saucepan",
+      "Large pan",
+      "Oven-proof dish",
+      "Wooden spoon",
+      "Whisk",
+      "Grater"
+    ],
+    "ingredients": [
+      "--- Mac & Cheese ---",
+      "150g tortiglioni pasta",
+      "100g white and brown Orkney crab meat",
+      "80g cheddar cheese, grated",
+      "35g Italian hard cheese, grated",
+      "40g Cornish clotted cream",
+      "15g butter",
+      "15g flour",
+      "300ml milk",
+      "1 garlic clove, finely chopped",
+      "5g chives",
+      "--- Cheesy Breadcrumb Topping ---",
+      "30g panko breadcrumbs",
+      "1/4 of the grated Italian hard cheese",
+      "Olive oil, pinch of salt",
+      "--- Salad ---",
+      "50g rocket",
+      "1 tomato, roughly chopped",
+      "15ml balsamic vinegar",
+      "Olive oil"
+    ],
+    "steps": [
+      "Preheat oven to 220°C / 200°C fan / gas 7. Boil a kettle. Finely chop the garlic.",
+      "Cook tortiglioni in boiling salted water for 8-10 minutes until it has a slight bite. Drain and return to the pot with a drizzle of olive oil.",
+      "Melt butter in a large pan over medium heat. Add garlic and cook 1-2 minutes until fragrant. Add flour and stir for 1-2 minutes until a sandy paste (roux) forms.",
+      "Gradually whisk 300ml milk into the roux, a little at a time. Cook for 5-6 minutes until a smooth, thick béchamel sauce forms.",
+      "Mix 1/4 of the Italian hard cheese with panko breadcrumbs, a pinch of salt, and a drizzle of olive oil for the topping.",
+      "Add the drained pasta to the béchamel. Gently break up the crab meat with a fork and stir through with the clotted cream, grated cheddar, and remaining Italian hard cheese. Snip chives over the pan. Season with salt and pepper and mix until the cheese has melted.",
+      "Transfer to an oven-proof dish. Top with the cheesy breadcrumbs. Bake for 20-25 minutes until golden and bubbling. Serve with the rocket, tomato, balsamic, and olive oil salad on the side."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200022",
+    "name": "Posh Fish Finger Sandwich with Chips & Dill Mayo",
+    "meal": "dinner",
+    "cuisine": "British",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "25 min",
+    "servings": "2",
+    "equipment": [
+      "Baking tray",
+      "Large frying pan (non-stick)",
+      "Kitchen paper",
+      "Small mixing bowl"
+    ],
+    "ingredients": [
+      "--- Chips ---",
+      "3 white potatoes, cut into chips (skins on)",
+      "Vegetable oil, salt",
+      "--- Fish Fingers ---",
+      "2 x 100g basa fillets, cut into strips",
+      "4 tbsp cornflour",
+      "1 tsp ground turmeric",
+      "Vegetable oil",
+      "Salt and pepper",
+      "--- Dill Mayo ---",
+      "50ml mayonnaise",
+      "15ml white wine vinegar",
+      "5g dill, finely chopped (stalks included)",
+      "Salt and pepper",
+      "--- To Serve ---",
+      "2 butter brioche buns",
+      "1 gem lettuce"
+    ],
+    "steps": [
+      "Preheat oven to 220°C / 200°C fan / gas 7. Cut potatoes into chips (skins on). Toss on a baking tray with vegetable oil and salt. Bake for 20-25 minutes until golden and crisp.",
+      "Toast the brioche bun halves cut-side down in a hot dry pan for 3 minutes until charred. Set aside.",
+      "Mix cornflour, turmeric, salt and pepper in a bowl. Cut basa fillets into strips. Coat the strips in the cornflour mixture.",
+      "Return the pan to medium-high heat with a generous drizzle of vegetable oil. Cook coated basa strips for 3-4 minutes each side until crisp and cooked through (opaque and flakes easily).",
+      "Finely chop the dill (stalks included). Mix mayo with white wine vinegar, chopped dill, salt and pepper.",
+      "Remove 4 outer gem lettuce leaves and wash. Shred the remaining lettuce. Fill toasted brioche buns with lettuce leaves, dill mayo, and crispy fish fingers. Serve chips and shredded lettuce on the side with any remaining dill mayo drizzled over."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "The turmeric in the cornflour mix gives the fish fingers a gorgeous golden colour."
+  },
+  {
+    "id": "r1744451200023",
+    "name": "Lamb & Apricot Stew",
+    "meal": "dinner",
+    "cuisine": "Middle Eastern",
+    "difficulty": "Easy",
+    "prepTime": "10 min",
+    "cookTime": "30 min",
+    "servings": "2",
+    "equipment": [
+      "Medium saucepan"
+    ],
+    "ingredients": [
+      "250g stewing lamb pieces",
+      "2 tbsp olive oil",
+      "1 onion, thinly sliced",
+      "1 garlic clove, chopped",
+      "1 tbsp chopped ginger",
+      "2 tsp ras-el-hanout (or other Middle Eastern spice mix)",
+      "1 tbsp tomato purée",
+      "5 soft dried apricots, halved",
+      "300ml vegetable or chicken stock",
+      "Salt and pepper",
+      "--- To Serve ---",
+      "Cooked couscous",
+      "Mint or coriander leaves",
+      "Lemon wedges"
+    ],
+    "steps": [
+      "Heat 1 tbsp oil in a medium pan. Season the lamb and fry briefly until browned. Remove from the pan.",
+      "Add the remaining oil. Add the onion, garlic, and ginger with a little seasoning. Cook for 5 minutes until soft.",
+      "Add the ras-el-hanout, tomato purée, apricots, and stock. Return the lamb to the pan.",
+      "Simmer gently for 25 minutes.",
+      "Serve with warm couscous, mint or coriander leaves, and lemon wedges."
+    ],
+    "tags": [
+      "dairy-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": ""
+  },
+  {
+    "id": "r1744451200024",
+    "name": "Beef & Vegetable Casserole",
+    "meal": "dinner",
+    "cuisine": "British",
+    "difficulty": "Easy",
+    "prepTime": "20 min",
+    "cookTime": "3 hr 30 min",
+    "servings": "4",
+    "equipment": [
+      "Flameproof casserole dish with lid",
+      "Kettle",
+      "Chopping board"
+    ],
+    "ingredients": [
+      "850g stewing beef (featherblade or brisket), cut into large chunks",
+      "2 celery sticks, thickly sliced",
+      "1 onion, chopped",
+      "2 big carrots, halved lengthways then chunkily sliced",
+      "5 bay leaves",
+      "2 thyme sprigs (1 whole, 1 leaves picked for garnish)",
+      "1 tbsp vegetable oil",
+      "1 tbsp butter",
+      "2 tbsp plain flour",
+      "2 tbsp tomato purée",
+      "2 tbsp Worcestershire sauce",
+      "2 beef stock cubes, crumbled",
+      "600ml hot water"
+    ],
+    "steps": [
+      "Heat oven to 160°C / 140°C fan / gas 3. Boil the kettle.",
+      "Put the celery, onion, carrots, bay leaves, and 1 whole thyme sprig in a flameproof casserole with the oil and butter. Soften for 10 minutes.",
+      "Stir in the flour until it doesn't look dusty, then add the tomato purée, Worcestershire sauce, and crumbled stock cubes.",
+      "Gradually stir in 600ml hot water. Add the beef and bring to a gentle simmer.",
+      "Cover and put in the oven for 2 hours 30 minutes.",
+      "Uncover and cook for 30 minutes to 1 hour more until the meat is really tender and the sauce has thickened.",
+      "Garnish with the picked thyme leaves from the second sprig."
+    ],
+    "tags": [
+      "dairy-free"
+    ],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "Low and slow is the key here. The extra uncovered time at the end thickens the sauce beautifully."
+  },
+  {
+    "id": "r1744451200025",
+    "name": "One-Pot Black Pepper Chicken Dal with Naan",
+    "meal": "dinner",
+    "cuisine": "Indian",
+    "difficulty": "Easy",
+    "prepTime": "5 min",
+    "cookTime": "30 min",
+    "servings": "2",
+    "equipment": [
+      "Large oven-proof casserole dish with lid",
+      "Baking tray (for naan)",
+      "Kettle",
+      "Two forks (for pulling chicken)"
+    ],
+    "ingredients": [
+      "320g British skinless chicken thighs",
+      "185g canned green lentils, drained and rinsed",
+      "100g red lentils, rinsed",
+      "1 garlic clove, crushed",
+      "15g fresh root ginger, peeled and halved",
+      "2 cardamom pods, crushed open",
+      "1 tbsp curry powder",
+      "1/2 tsp ground turmeric",
+      "2.5g cracked black pepper",
+      "50g solid creamed coconut",
+      "11g chicken stock mix",
+      "500ml boiled water",
+      "2 plain naans",
+      "15g crispy onions",
+      "10g fresh coriander & mint",
+      "Vegetable oil"
+    ],
+    "steps": [
+      "Preheat oven to 220°C / 200°C fan / gas 7. Boil a kettle. Heat a casserole dish with a drizzle of vegetable oil over medium-high heat. Drain and rinse both lentils together.",
+      "Crush the garlic and cardamom pods with the flat of a knife. Peel and halve the ginger.",
+      "Add the lentils, garlic, ginger halves, cardamom, curry powder, and turmeric to the dish. Mix well.",
+      "Add the chicken stock mix, cracked black pepper, creamed coconut, and 500ml boiled water. Stir, then place the chicken thighs on top.",
+      "Bring to a boil, cover with the lid, and put in the oven for 15 minutes.",
+      "Remove from oven, give everything a stir. Return uncovered for 5 more minutes until lentils have split and chicken is cooked through (no pink).",
+      "Warm the naan on a baking tray in the oven for 3-4 minutes. Pull the chicken into large chunks using two forks. Discard the ginger halves! Top the dal with pulled chicken, crispy onions, and torn coriander and mint leaves. Serve with warm naan."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "This is a proper one-pot meal. Watch out for the ginger halves when serving and fish them out!"
+  },
+  {
+    "id": "r1744451200026",
+    "name": "Chicken Tinga Tacos with Lime Mayo",
+    "meal": "dinner",
+    "cuisine": "Mexican",
+    "difficulty": "Easy",
+    "prepTime": "5 min",
+    "cookTime": "20 min",
+    "servings": "2",
+    "equipment": [
+      "Large frying pan with lid (non-stick)",
+      "Baking tray",
+      "Small mixing bowl",
+      "Two forks (for pulling chicken)"
+    ],
+    "ingredients": [
+      "--- Chicken Tinga ---",
+      "2 chicken breasts",
+      "1 tsp ground cumin",
+      "1 tsp ground coriander",
+      "20g chipotle paste",
+      "16g tomato paste",
+      "2 spring onions, finely sliced",
+      "150ml boiled water",
+      "Vegetable oil, salt",
+      "--- Lime Mayo ---",
+      "50ml mayonnaise",
+      "Juice of 1/2 lime",
+      "1 tbsp olive oil",
+      "--- To Serve ---",
+      "6 plain tortillas",
+      "1 gem lettuce, shredded",
+      "40g cheddar cheese, grated",
+      "Lime wedges"
+    ],
+    "steps": [
+      "Sprinkle the chicken breasts with ground cumin, ground coriander, and a large pinch of salt. Toss to coat.",
+      "Heat a large pan with vegetable oil over medium-high heat. Cook the spiced chicken for 3-4 minutes each side until browned.",
+      "Mix the chipotle paste and tomato paste together. Add to the pan with the sliced spring onions and 150ml boiled water. Season with salt, cover with a lid, and cook for 12-15 minutes until the chicken is cooked through (no pink).",
+      "Meanwhile, mix the mayo with the juice of half a lime and 1 tbsp olive oil for your lime mayo.",
+      "Warm the tortillas on a baking tray in the oven for 2-3 minutes (or microwave 1-2 minutes).",
+      "Transfer chicken to a board and shred with two forks. Return to the pan with the sauce and stir together.",
+      "Fill warmed tortillas with shredded lettuce, chicken tinga, grated cheese, and lime mayo. Serve with lime wedges."
+    ],
+    "tags": [],
+    "rating": 0,
+    "haveToTry": false,
+    "favourite": true,
+    "source": "",
+    "notes": "Go easy on the chipotle paste if you can't handle the heat. Double everything for 4."
+  }
+]</script>
+
+<script>
+  let recipes = [];
+  let currentFilter = 'all';
+  let currentSearch = '';
+  let viewingRecipeId = null;
+  let editingRecipeId = null;
+  let cookRecipe = null;
+  let cookCurrentStep = 0;
+  let cookTimer = null;
+  let cookTimerSeconds = 0;
+  let cookTimerRunning = false;
+
+  function loadRecipes() {
+    const el = document.getElementById('recipe-data');
+    if (el) { try { recipes = JSON.parse(el.textContent); } catch(e) { recipes = []; } }
+  }
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function render() {
+    const grid = document.getElementById('recipeGrid');
+    const empty = document.getElementById('emptyState');
+    let filtered = recipes.filter(r => {
+      const matchMeal = currentFilter === 'all' || (currentFilter === 'havetotry' ? r.haveToTry : currentFilter === 'favourites' ? r.favourite : r.meal === currentFilter);
+      const q = currentSearch.toLowerCase();
+      const matchSearch = !q ||
+        r.name.toLowerCase().includes(q) ||
+        (r.cuisine || '').toLowerCase().includes(q) ||
+        (r.ingredients || []).some(i => i.toLowerCase().includes(q)) ||
+        (r.equipment || []).some(i => i.toLowerCase().includes(q)) ||
+        (r.tags || []).some(t => t.toLowerCase().includes(q));
+      return matchMeal && matchSearch;
+    });
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      empty.querySelector('h3').textContent = recipes.length > 0 ? 'No matches found' : 'No recipes yet';
+      empty.querySelector('p').textContent = recipes.length > 0 ? 'Try a different search or filter.' : 'Click "+ Add Recipe" to start building your cookbook!';
+    } else {
+      empty.style.display = 'none';
+      grid.innerHTML = filtered.map(r => `
+        <div class="recipe-card meal-${r.meal}" onclick="openDetail('${r.id}')">
+          <div class="card-color-bar"></div>
+          ${r.haveToTry ? `<div class="card-badges"><span class="have-to-try-badge">Have to try</span></div>` : ''}
+          <div class="favourite-heart ${r.favourite ? 'filled' : 'empty'}" onclick="event.stopPropagation();quickToggleFav('${r.id}')">${r.favourite ? '&#9829;' : '&#9825;'}</div>
+          ${r.rating ? `<div class="card-rating-with-fav">${'&#9733;'.repeat(r.rating)}</div>` : ''}
+          <div class="card-body">
+            <div class="card-meal-tag">${r.meal}</div>
+            <div class="card-title">${esc(r.name)}</div>
+            ${r.cuisine ? `<div class="card-cuisine">${esc(r.cuisine)}</div>` : ''}
+            <div class="card-meta">
+              ${r.prepTime ? `<span>&#9201; ${esc(r.prepTime)}</span>` : ''}
+              ${r.cookTime ? `<span>&#128293; ${esc(r.cookTime)}</span>` : ''}
+              ${r.servings ? `<span>&#127860; ${esc(r.servings)}</span>` : ''}
+              ${r.difficulty ? `<span>${esc(r.difficulty)}</span>` : ''}
+            </div>
+            ${r.tags && r.tags.length ? `<div class="card-tags">${r.tags.map(t => `<span class="diet-tag">${esc(t)}</span>`).join('')}</div>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+    document.getElementById('totalRecipes').textContent = recipes.length;
+    document.getElementById('totalCuisines').textContent = new Set(recipes.map(r => r.cuisine).filter(Boolean)).size;
+    const rated = recipes.filter(r => r.rating);
+    document.getElementById('avgRating').textContent = rated.length
+      ? (rated.reduce((s, r) => s + r.rating, 0) / rated.length).toFixed(1) : '-';
+  }
+
+  function openDetail(id) {
+    const r = recipes.find(x => x.id === id);
+    if (!r) return;
+    viewingRecipeId = id;
+    document.getElementById('detailMeal').innerHTML = r.meal + (r.haveToTry ? ' &nbsp;<span class="have-to-try-badge">Have to try</span>' : '');
+    document.getElementById('detailTitle').textContent = r.name;
+    document.getElementById('detailCuisine').textContent = r.cuisine || '';
+    document.getElementById('startCookBtn').style.display = (r.steps && r.steps.length) ? '' : 'none';
+    // Favourite button state
+    const favBtn = document.getElementById('favBtn');
+    const favIcon = document.getElementById('favIcon');
+    const favLabel = document.getElementById('favLabel');
+    if (r.favourite) {
+      favBtn.classList.add('is-fav'); favIcon.innerHTML = '&#9829;'; favLabel.textContent = 'Favourited';
+    } else {
+      favBtn.classList.remove('is-fav'); favIcon.innerHTML = '&#9825;'; favLabel.textContent = 'Favourite';
+    }
+    // Tried button (only show if haveToTry)
+    document.getElementById('triedBtn').style.display = r.haveToTry ? '' : 'none';
+    document.getElementById('detailMeta').innerHTML = [
+      r.prepTime ? `<div class="meta-item"><span class="meta-label">Prep</span><span class="meta-value">${esc(r.prepTime)}</span></div>` : '',
+      r.cookTime ? `<div class="meta-item"><span class="meta-label">Cook</span><span class="meta-value">${esc(r.cookTime)}</span></div>` : '',
+      r.servings ? `<div class="meta-item"><span class="meta-label">Servings</span><span class="meta-value">${esc(r.servings)}</span></div>` : '',
+      r.difficulty ? `<div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-value">${esc(r.difficulty)}</span></div>` : '',
+      r.rating ? `<div class="meta-item"><span class="meta-label">Rating</span><span class="meta-value modal-rating">${'&#9733;'.repeat(r.rating)}${'&#9734;'.repeat(5-r.rating)}</span></div>` : '',
+    ].filter(Boolean).join('');
+    let body = '';
+    if (r.equipment && r.equipment.length) {
+      body += `<div class="modal-section"><h3>&#129691; Equipment</h3><div class="equipment-list">${r.equipment.map(e => `<span class="equipment-tag">${esc(e)}</span>`).join('')}</div></div>`;
+    }
+    if (r.ingredients && r.ingredients.length) {
+      body += `<div class="modal-section"><h3>&#127813; Ingredients</h3><ul class="ingredients-list">${r.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`;
+    }
+    if (r.steps && r.steps.length) {
+      body += `<div class="modal-section"><h3>&#128221; Steps</h3><ol class="steps-list">${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol></div>`;
+    }
+    if (r.tags && r.tags.length) {
+      body += `<div class="modal-section"><h3>&#127991;&#65039; Dietary</h3><div class="modal-tags">${r.tags.map(t => `<span class="diet-tag">${esc(t)}</span>`).join('')}</div></div>`;
+    }
+    if (r.notes) {
+      body += `<div class="modal-section"><h3>&#128172; Notes</h3><div class="modal-notes">${esc(r.notes)}</div></div>`;
+    }
+    if (r.source) {
+      const isUrl = r.source.startsWith('http');
+      body += `<div class="modal-section modal-source"><h3>&#128279; Source</h3>${isUrl ? `<a href="${esc(r.source)}" target="_blank">${esc(r.source)}</a>` : `<span style="font-size:var(--text-sm);color:var(--text-secondary)">${esc(r.source)}</span>`}</div>`;
+    }
+    document.getElementById('detailBody').innerHTML = body;
+    document.getElementById('detailModal').classList.add('open');
+  }
+
+  function toggleFavourite() {
+    const r = recipes.find(x => x.id === viewingRecipeId);
+    if (!r) return;
+    r.favourite = !r.favourite;
+    openDetail(r.id); // refresh the modal
+    render(); triggerSave();
+  }
+
+  function quickToggleFav(id) {
+    const r = recipes.find(x => x.id === id);
+    if (!r) return;
+    r.favourite = !r.favourite;
+    render(); triggerSave();
+  }
+
+  function markAsTried() {
+    const r = recipes.find(x => x.id === viewingRecipeId);
+    if (!r) return;
+    r.haveToTry = false;
+    openDetail(r.id); // refresh the modal
+    render(); triggerSave();
+  }
+
+  function closeDetail() { document.getElementById('detailModal').classList.remove('open'); viewingRecipeId = null; }
+
+  function openAddForm() {
+    editingRecipeId = null;
+    document.getElementById('formTitle').textContent = 'Add a New Recipe';
+    document.getElementById('recipeForm').reset();
+    document.getElementById('fHaveToTry').checked = false;
+    document.getElementById('fFavourite').checked = false;
+    document.getElementById('addModal').classList.add('open');
+  }
+
+  function closeAddForm() { document.getElementById('addModal').classList.remove('open'); editingRecipeId = null; }
+
+  function editRecipe() {
+    const r = recipes.find(x => x.id === viewingRecipeId);
+    if (!r) return;
+    closeDetail();
+    editingRecipeId = r.id;
+    document.getElementById('formTitle').textContent = 'Edit Recipe';
+    document.getElementById('fName').value = r.name;
+    document.getElementById('fMeal').value = r.meal;
+    document.getElementById('fCuisine').value = r.cuisine || '';
+    document.getElementById('fDifficulty').value = r.difficulty || '';
+    document.getElementById('fPrep').value = r.prepTime || '';
+    document.getElementById('fCook').value = r.cookTime || '';
+    document.getElementById('fServings').value = r.servings || '';
+    document.getElementById('fEquipment').value = (r.equipment || []).join('\n');
+    document.getElementById('fIngredients').value = (r.ingredients || []).join('\n');
+    document.getElementById('fSteps').value = (r.steps || []).join('\n');
+    document.getElementById('fTags').value = (r.tags || []).join(', ');
+    document.getElementById('fRating').value = r.rating || '';
+    document.getElementById('fHaveToTry').checked = !!r.haveToTry;
+    document.getElementById('fFavourite').checked = !!r.favourite;
+    document.getElementById('fSource').value = r.source || '';
+    document.getElementById('fNotes').value = r.notes || '';
+    document.getElementById('addModal').classList.add('open');
+  }
+
+  function deleteRecipe() {
+    if (!viewingRecipeId) return;
+    const r = recipes.find(x => x.id === viewingRecipeId);
+    if (!confirm(`Delete "${r.name}"? This can't be undone.`)) return;
+    recipes = recipes.filter(x => x.id !== viewingRecipeId);
+    closeDetail(); render(); triggerSave();
+  }
+
+  function saveRecipe(e) {
+    e.preventDefault();
+    const data = {
+      id: editingRecipeId || 'r' + Date.now(),
+      name: document.getElementById('fName').value.trim(),
+      meal: document.getElementById('fMeal').value,
+      cuisine: document.getElementById('fCuisine').value.trim(),
+      difficulty: document.getElementById('fDifficulty').value,
+      prepTime: document.getElementById('fPrep').value.trim(),
+      cookTime: document.getElementById('fCook').value.trim(),
+      servings: document.getElementById('fServings').value.trim(),
+      equipment: document.getElementById('fEquipment').value.split('\n').map(s => s.trim()).filter(Boolean),
+      ingredients: document.getElementById('fIngredients').value.split('\n').map(s => s.trim()).filter(Boolean),
+      steps: document.getElementById('fSteps').value.split('\n').map(s => s.trim()).filter(Boolean),
+      tags: document.getElementById('fTags').value.split(',').map(s => s.trim()).filter(Boolean),
+      rating: parseInt(document.getElementById('fRating').value) || 0,
+      haveToTry: document.getElementById('fHaveToTry').checked,
+      favourite: document.getElementById('fFavourite').checked,
+      source: document.getElementById('fSource').value.trim(),
+      notes: document.getElementById('fNotes').value.trim(),
+    };
+    if (editingRecipeId) {
+      const idx = recipes.findIndex(x => x.id === editingRecipeId);
+      if (idx >= 0) recipes[idx] = data;
+    } else { recipes.push(data); }
+    closeAddForm(); render(); triggerSave();
+  }
+
+  function triggerSave() {
+    const dataEl = document.getElementById('recipe-data');
+    if (dataEl) dataEl.textContent = JSON.stringify(recipes, null, 2);
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'my-cookbook.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  // ═══ COOKING MODE ═══
+  function startCookMode() {
+    const r = recipes.find(x => x.id === viewingRecipeId);
+    if (!r || !r.steps || !r.steps.length) return;
+    cookRecipe = r;
+    cookCurrentStep = 0;
+    closeDetail();
+    clearCookTimer();
+    document.getElementById('cookTitle').textContent = r.name;
+    const eqBar = document.getElementById('cookEquipment');
+    if (r.equipment && r.equipment.length) {
+      eqBar.style.display = 'flex';
+      eqBar.innerHTML = `<span class="cook-mode-equipment-label">You'll need:</span>` +
+        r.equipment.map(e => `<span class="equipment-tag">${esc(e)}</span>`).join('');
+    } else { eqBar.style.display = 'none'; }
+    document.getElementById('cookDots').innerHTML = r.steps.map((_, i) => `<div class="cook-dot" data-i="${i}"></div>`).join('');
+    renderCookStep();
+    document.getElementById('cookMode').classList.add('open');
+  }
+
+  function exitCookMode() { clearCookTimer(); document.getElementById('cookMode').classList.remove('open'); cookRecipe = null; }
+
+  function cookStep(dir) {
+    const newStep = cookCurrentStep + dir;
+    if (newStep < 0 || newStep >= cookRecipe.steps.length) return;
+    clearCookTimer(); cookCurrentStep = newStep; renderCookStep();
+  }
+
+  function renderCookStep() {
+    const r = cookRecipe;
+    const step = r.steps[cookCurrentStep];
+    const total = r.steps.length;
+    document.getElementById('cookProgress').textContent = `Step ${cookCurrentStep + 1} of ${total}`;
+    document.getElementById('cookBody').innerHTML = `
+      <div class="cook-mode-step-number">${cookCurrentStep + 1}</div>
+      <div class="cook-mode-step-text">${esc(step)}</div>
+      <div class="cook-mode-timer">
+        <div class="timer-display" id="timerDisplay">00:00</div>
+        <div class="timer-set">
+          <input type="number" id="timerMinutes" value="0" min="0" max="999" placeholder="min">
+          <span>min</span>
+          <input type="number" id="timerSeconds" value="0" min="0" max="59" placeholder="sec">
+          <span>sec</span>
+        </div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="timerStartBtn" onclick="toggleTimer()">Start timer</button>
+          <button class="timer-btn" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+    `;
+    const timeMatch = step.match(/(\d+)\s*(minutes?|mins?|min)\b/i);
+    const secMatch = step.match(/(\d+)\s*(seconds?|secs?|sec)\b/i);
+    if (timeMatch) { document.getElementById('timerMinutes').value = parseInt(timeMatch[1]); updateTimerDisplay(); }
+    if (secMatch) { document.getElementById('timerSeconds').value = parseInt(secMatch[1]); updateTimerDisplay(); }
+    document.getElementById('cookPrev').disabled = cookCurrentStep === 0;
+    document.getElementById('cookNext').disabled = cookCurrentStep === total - 1;
+    document.getElementById('cookNext').textContent = cookCurrentStep === total - 1 ? 'Done!' : 'Next';
+    document.querySelectorAll('.cook-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === cookCurrentStep);
+      dot.classList.toggle('completed', i < cookCurrentStep);
+    });
+  }
+
+  function updateTimerDisplay() {
+    const m = parseInt(document.getElementById('timerMinutes').value) || 0;
+    const s = parseInt(document.getElementById('timerSeconds').value) || 0;
+    cookTimerSeconds = m * 60 + s;
+    document.getElementById('timerDisplay').textContent = formatTime(cookTimerSeconds);
+    document.getElementById('timerDisplay').classList.remove('done');
+  }
+
+  function formatTime(t) {
+    return String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
+  }
+
+  function toggleTimer() { cookTimerRunning ? pauseTimer() : startTimer(); }
+
+  function startTimer() {
+    if (!cookTimerRunning) {
+      if (cookTimerSeconds <= 0) updateTimerDisplay();
+      if (cookTimerSeconds <= 0) return;
+      cookTimerRunning = true;
+      document.getElementById('timerStartBtn').textContent = 'Pause';
+      document.getElementById('timerStartBtn').classList.add('active');
+      cookTimer = setInterval(() => {
+        cookTimerSeconds--;
+        document.getElementById('timerDisplay').textContent = formatTime(cookTimerSeconds);
+        if (cookTimerSeconds <= 0) {
+          clearInterval(cookTimer); cookTimerRunning = false;
+          document.getElementById('timerStartBtn').textContent = 'Start timer';
+          document.getElementById('timerStartBtn').classList.remove('active');
+          document.getElementById('timerDisplay').textContent = "Time's up!";
+          document.getElementById('timerDisplay').classList.add('done');
+          try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            for (let i = 0; i < 3; i++) {
+              const osc = ctx.createOscillator(); const gain = ctx.createGain();
+              osc.connect(gain); gain.connect(ctx.destination);
+              osc.frequency.value = 880; osc.type = 'sine'; gain.gain.value = 0.3;
+              osc.start(ctx.currentTime + i * 0.3); osc.stop(ctx.currentTime + i * 0.3 + 0.2);
+            }
+          } catch(e) {}
+        }
+      }, 1000);
+    }
+  }
+
+  function pauseTimer() {
+    clearInterval(cookTimer); cookTimerRunning = false;
+    document.getElementById('timerStartBtn').textContent = 'Resume';
+    document.getElementById('timerStartBtn').classList.remove('active');
+  }
+
+  function resetTimer() { clearCookTimer(); updateTimerDisplay(); }
+  function clearCookTimer() { clearInterval(cookTimer); cookTimerRunning = false; cookTimerSeconds = 0; }
+
+  // ═══ EVENTS ═══
+  document.getElementById('tabBar').addEventListener('click', e => {
+    const tab = e.target.closest('.tab');
+    if (!tab) return;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.dataset.meal;
+    render();
+  });
+  document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; render(); });
+  document.getElementById('detailModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeDetail(); });
+  document.getElementById('addModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAddForm(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (document.getElementById('cookMode').classList.contains('open')) exitCookMode();
+      else { closeDetail(); closeAddForm(); }
+    }
+    if (document.getElementById('cookMode').classList.contains('open')) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') cookStep(1);
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') cookStep(-1);
+    }
+  });
+
+  loadRecipes();
+  render();
+</script>
+
+
+
+</body></html>
