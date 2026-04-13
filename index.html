@@ -878,6 +878,38 @@
     .mp-shop-item-text { flex: 1; }
     .mp-shop-item-recipes { font-size: var(--text-xs); color: var(--text-muted); }
 
+    /* ═══ GITHUB SYNC ═══ */
+    .sync-btn {
+      background: none; border: 2px solid rgba(255,255,255,0.3); border-radius: var(--radius-full);
+      color: var(--white); padding: 6px 16px; font-size: var(--text-sm); font-weight: 600;
+      font-family: var(--font-ui); cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all var(--transition-base);
+    }
+    .sync-btn:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+    .sync-btn.syncing { opacity: 0.7; pointer-events: none; }
+    .sync-btn .sync-icon { display: inline-block; }
+    .sync-btn.syncing .sync-icon { animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .sync-status {
+      font-size: var(--text-xs); color: rgba(255,255,255,0.7); margin-top: 4px;
+    }
+    .sync-status.success { color: #90ee90; }
+    .sync-status.error { color: #ffb3b3; }
+    .gh-setup-bar {
+      background: var(--blue-wash); border: 2px dashed var(--border); border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-5); margin-bottom: var(--space-4); text-align: center;
+      font-size: var(--text-sm); color: var(--text-secondary);
+    }
+    .gh-setup-bar a { color: var(--blue); cursor: pointer; font-weight: 600; text-decoration: underline; }
+    .gh-settings-form { max-width: 500px; margin: 0 auto; }
+    .gh-settings-form label { display: block; font-size: var(--text-sm); font-weight: 600; margin-bottom: 4px; color: var(--text); }
+    .gh-settings-form input {
+      width: 100%; padding: var(--space-3); border: 2px solid var(--border); border-radius: var(--radius-sm);
+      font-size: var(--text-sm); font-family: var(--font-ui); margin-bottom: var(--space-4);
+    }
+    .gh-settings-form input:focus { outline: none; border-color: var(--blue); }
+    .gh-settings-form .gh-help { font-size: var(--text-xs); color: var(--text-muted); margin-top: -10px; margin-bottom: var(--space-4); }
+
     /* Loading animation */
     .mp-loading {
       text-align: center; padding: var(--space-16);
@@ -926,6 +958,10 @@
         <div class="stat"><span class="stat-number" id="totalCuisines">0</span><span class="stat-label">Cuisines</span></div>
         <div class="stat"><span class="stat-number" id="avgRating">-</span><span class="stat-label">Avg Rating</span></div>
       </div>
+      <div style="margin-top:var(--space-4);">
+        <button class="sync-btn" id="syncBtn" onclick="syncToGitHub()"><span class="sync-icon">&#x21bb;</span> Sync live</button>
+        <div class="sync-status" id="syncStatus"></div>
+      </div>
     </div>
   </div>
 
@@ -960,6 +996,35 @@
       <div class="empty-state-icon">&#127859;</div>
       <h3>No recipes yet</h3>
       <p>Click "+ Add Recipe" to start building your cookbook!</p>
+    </div>
+  </div>
+
+  <!-- GitHub settings modal -->
+  <div class="modal-overlay" id="ghSettingsModal">
+    <div class="modal" style="max-width:520px;">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeGHSettings()">&times;</button>
+        <h2 style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;">Live sync settings</h2>
+        <p style="color:var(--text-muted);font-size:var(--text-sm);margin-top:4px;">Connect to GitHub so your changes go live instantly</p>
+      </div>
+      <div style="padding:var(--space-6) var(--space-8);">
+        <div class="gh-settings-form">
+          <label for="ghRepo">Repository</label>
+          <input type="text" id="ghRepo" placeholder="username/repo-name" value="biancadrg/my-cookbook">
+          <p class="gh-help">Your GitHub repo in the format username/repo</p>
+          <label for="ghToken">Personal Access Token</label>
+          <input type="password" id="ghToken" placeholder="github_pat_...">
+          <p class="gh-help">Needs "Contents" write permission. <a href="https://github.com/settings/tokens?type=beta" target="_blank">Create one here</a></p>
+          <label for="ghFile">File path</label>
+          <input type="text" id="ghFile" placeholder="index.html" value="index.html">
+          <p class="gh-help">The file name in your repo (usually index.html)</p>
+          <div style="display:flex;gap:var(--space-3);margin-top:var(--space-4);">
+            <button class="btn btn-primary" onclick="saveGHSettings()">Save settings</button>
+            <button class="btn btn-secondary" onclick="closeGHSettings()">Cancel</button>
+            <button class="btn btn-danger btn-small" onclick="clearGHSettings()" style="margin-left:auto;">Disconnect</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -3747,13 +3812,190 @@
   function triggerSave() {
     const dataEl = document.getElementById('recipe-data');
     if (dataEl) dataEl.textContent = JSON.stringify(recipes, null, 2);
-    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-    const blob = new Blob([html], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'index.html';
-    a.click();
-    URL.revokeObjectURL(a.href);
+    // If GitHub is connected, sync live. Otherwise download.
+    const gh = getGHSettings();
+    if (gh.token && gh.repo) {
+      syncToGitHub();
+    } else {
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'index.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+  }
+
+  // ═══ GITHUB SYNC ═══
+  function getGHSettings() {
+    try {
+      return {
+        repo: localStorage.getItem('gh_repo') || '',
+        token: localStorage.getItem('gh_token') || '',
+        file: localStorage.getItem('gh_file') || 'index.html'
+      };
+    } catch(e) { return { repo: '', token: '', file: 'index.html' }; }
+  }
+
+  function openGHSettings() {
+    const gh = getGHSettings();
+    document.getElementById('ghRepo').value = gh.repo || 'biancadrg/my-cookbook';
+    document.getElementById('ghToken').value = gh.token;
+    document.getElementById('ghFile').value = gh.file || 'index.html';
+    document.getElementById('ghSettingsModal').classList.add('open');
+  }
+
+  function closeGHSettings() {
+    document.getElementById('ghSettingsModal').classList.remove('open');
+  }
+
+  function saveGHSettings() {
+    const repo = document.getElementById('ghRepo').value.trim();
+    const token = document.getElementById('ghToken').value.trim();
+    const file = document.getElementById('ghFile').value.trim() || 'index.html';
+    if (!repo || !token) { alert('Please fill in both the repository and token.'); return; }
+    try {
+      localStorage.setItem('gh_repo', repo);
+      localStorage.setItem('gh_token', token);
+      localStorage.setItem('gh_file', file);
+    } catch(e) {}
+    closeGHSettings();
+    updateSyncButton();
+    setSyncStatus('Connected! Changes will sync live.', 'success');
+  }
+
+  function clearGHSettings() {
+    if (!confirm('Disconnect GitHub sync? Changes will download as files again.')) return;
+    try {
+      localStorage.removeItem('gh_repo');
+      localStorage.removeItem('gh_token');
+      localStorage.removeItem('gh_file');
+    } catch(e) {}
+    closeGHSettings();
+    updateSyncButton();
+    setSyncStatus('');
+  }
+
+  function updateSyncButton() {
+    const gh = getGHSettings();
+    const btn = document.getElementById('syncBtn');
+    if (gh.token && gh.repo) {
+      btn.style.display = 'inline-flex';
+    } else {
+      btn.style.display = 'inline-flex';
+      btn.innerHTML = '<span class="sync-icon">&#9881;</span> Set up live sync';
+      btn.onclick = openGHSettings;
+    }
+  }
+
+  function setSyncStatus(msg, type) {
+    const el = document.getElementById('syncStatus');
+    el.textContent = msg;
+    el.className = 'sync-status' + (type ? ' ' + type : '');
+    if (msg && type) setTimeout(() => { el.textContent = ''; el.className = 'sync-status'; }, 5000);
+  }
+
+  let _syncPending = false;
+  let _syncTimer = null;
+
+  async function syncToGitHub() {
+    const gh = getGHSettings();
+    if (!gh.token || !gh.repo) { openGHSettings(); return; }
+
+    // Debounce rapid saves
+    if (_syncTimer) clearTimeout(_syncTimer);
+    _syncPending = true;
+    _syncTimer = setTimeout(_doSync, 1500);
+  }
+
+  async function _doSync() {
+    _syncPending = false;
+    const gh = getGHSettings();
+    const btn = document.getElementById('syncBtn');
+    btn.classList.add('syncing');
+    btn.innerHTML = '<span class="sync-icon">&#x21bb;</span> Syncing...';
+    setSyncStatus('Pushing changes live...');
+
+    try {
+      // Update the recipe data in the DOM
+      const dataEl = document.getElementById('recipe-data');
+      if (dataEl) dataEl.textContent = JSON.stringify(recipes, null, 2);
+
+      // Get current HTML - remove any sync-specific UI state
+      const syncBtn = document.getElementById('syncBtn');
+      const origSyncHTML = syncBtn.innerHTML;
+      const origSyncClass = syncBtn.className;
+      syncBtn.innerHTML = '<span class="sync-icon">&#x21bb;</span> Sync live';
+      syncBtn.className = 'sync-btn';
+      const statusEl = document.getElementById('syncStatus');
+      const origStatus = statusEl.textContent;
+      statusEl.textContent = '';
+
+      // Remove open class from any modals
+      document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+      // Restore UI state
+      syncBtn.innerHTML = origSyncHTML;
+      syncBtn.className = origSyncClass;
+      statusEl.textContent = origStatus;
+
+      // Base64 encode
+      const b64 = btoa(unescape(encodeURIComponent(html)));
+
+      // Get current file SHA (needed for updates)
+      const apiBase = 'https://api.github.com/repos/' + gh.repo + '/contents/' + gh.file;
+      const headers = {
+        'Authorization': 'Bearer ' + gh.token,
+        'Accept': 'application/vnd.github+json'
+      };
+
+      let sha = null;
+      try {
+        const getResp = await fetch(apiBase, { headers });
+        if (getResp.ok) {
+          const getData = await getResp.json();
+          sha = getData.sha;
+        }
+      } catch(e) { /* File might not exist yet, that's OK */ }
+
+      // Push the file
+      const body = { message: 'Update cookbook', content: b64 };
+      if (sha) body.sha = sha;
+
+      const putResp = await fetch(apiBase, {
+        method: 'PUT',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (putResp.ok) {
+        setSyncStatus('Live! Changes are on your site.', 'success');
+      } else {
+        const errData = await putResp.json().catch(() => ({}));
+        throw new Error(errData.message || 'GitHub returned ' + putResp.status);
+      }
+    } catch(e) {
+      console.error('Sync error:', e);
+      setSyncStatus('Sync failed: ' + e.message, 'error');
+    } finally {
+      btn.classList.remove('syncing');
+      btn.innerHTML = '<span class="sync-icon">&#x21bb;</span> Sync live';
+      btn.onclick = function() { syncToGitHub(); };
+    }
+  }
+
+  // Initialize sync button on load
+  function initSync() {
+    updateSyncButton();
+    const gh = getGHSettings();
+    if (gh.token && gh.repo) {
+      const btn = document.getElementById('syncBtn');
+      btn.innerHTML = '<span class="sync-icon">&#x21bb;</span> Sync live';
+      btn.onclick = function() { syncToGitHub(); };
+    }
   }
 
   // ═══ COOKING MODE ═══
@@ -4315,6 +4557,7 @@
   loadRecipes();
   render();
   checkHash();
+  initSync();
 </script>
 
 </body>
